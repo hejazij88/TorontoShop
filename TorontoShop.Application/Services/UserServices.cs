@@ -57,5 +57,10 @@ namespace TorontoShop.Application.Services
             return LogInUserStatus.Success;
 
         }
+
+        public async Task<User?> GetUserByPhoneAsync(string phone)
+        {
+            return await _userRepository.GetUserByPhoneNumber(phone);
+        }
     }
 }
