@@ -7,8 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Model\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="ViewModel\" />
   </ItemGroup>
 
