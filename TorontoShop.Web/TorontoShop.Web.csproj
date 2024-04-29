@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -17,6 +17,13 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TorontoShop.Application\TorontoShop.Application.csproj" />
+    <ProjectReference Include="..\TorontoShop.Domain\TorontoShop.Domain.csproj" />
+    <ProjectReference Include="..\TorontoShop.Infa.Data\TorontoShop.Infa.Data.csproj" />
+    <ProjectReference Include="..\TorontoShop.InfaIoC\TorontoShop.InfaIoC.csproj" />
   </ItemGroup>
 
 </Project>
