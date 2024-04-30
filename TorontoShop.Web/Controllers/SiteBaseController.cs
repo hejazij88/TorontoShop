@@ -4,9 +4,9 @@ namespace TorontoShop.Web.Controllers
 {
     public class SiteBaseController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        protected string ErrorMessage = "ErrorMessage";
+        protected string SuccessMessage = "SuccessMessage";
+        protected string WarningMessage = "WarningMessage";
+        protected string InfoMessage = "InfoMessage";
     }
 }

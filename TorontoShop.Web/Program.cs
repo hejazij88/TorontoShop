@@ -1,6 +1,12 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
+using TorontoShop.Application.Interfaces;
+using TorontoShop.Application.Services;
+using TorontoShop.Domain.Interfaces;
 using TorontoShop.Infa.Data.Context;
+using TorontoShop.Infa.Data.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +31,13 @@ builder.Services.AddAuthentication(option =>
     option.LoginPath = "/LogOut";
     option.ExpireTimeSpan = TimeSpan.FromMinutes(46200);
 });
+
+builder.Services.AddScoped<IUserServices, UserServices>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IPasswordHelper, PasswordHelper>();
+
+builder.Services.AddSingleton<HtmlEncoder>(HtmlEncoder.Create(allowedRanges: new[] { UnicodeRanges.BasicLatin, UnicodeRanges.Arabic }));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
