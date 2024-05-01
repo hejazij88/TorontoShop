@@ -63,10 +63,14 @@ namespace TorontoShop.Web.Controllers
                 switch (result)
                 {
                     case LogInUserStatus.IsBlocked:
+                        TempData[ErrorMessage] = "حساب شما مسدود شده است";
                         break;
                     case LogInUserStatus.NotFound:
+                        TempData[ErrorMessage] = "حساب کاربری پیدا نشد";
                         break;
                     case LogInUserStatus.NoActive:
+                        TempData[ErrorMessage] = "حساب شما فعال نشده است";
+
                         break;
                     case LogInUserStatus.Success:
                         var user = await _userServices.GetUserByPhoneAsync(logInViewModel.PhoneNumber);
@@ -85,6 +89,7 @@ namespace TorontoShop.Web.Controllers
                             IsPersistent = logInViewModel.IsRememberMe
                         };
                         await HttpContext.SignInAsync(principle, property);
+                        TempData[SuccessMessage] = "ورود موفقیت آمیز";
                         return Redirect("/");
                 }
             }
