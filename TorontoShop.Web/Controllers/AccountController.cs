@@ -36,8 +36,8 @@ namespace TorontoShop.Web.Controllers
                         break;
                     case RegisterUserStatus.Success:
                         TempData[SuccessMessage] = "ثبت نام موفقیت آمیز بود";
-                        Redirect("/");
-                        break;
+                       return Redirect("/");
+                        
                 }
 
             }
@@ -90,7 +90,7 @@ namespace TorontoShop.Web.Controllers
                         };
                         await HttpContext.SignInAsync(principle, property);
                         TempData[SuccessMessage] = "ورود موفقیت آمیز";
-                        return Redirect("/");
+                        return RedirectToAction("ActivateCode",user.PhoneNumber);
                 }
             }
             return View(logInViewModel);
@@ -103,6 +103,43 @@ namespace TorontoShop.Web.Controllers
             await HttpContext.SignOutAsync();
             TempData[InfoMessage] = "خروج موفقیت آمیز";
           return  Redirect("/");
+        }
+
+        [HttpGet("Active-Code/{phone}")]
+        public IActionResult ActivateCode(string phone)
+        {
+            if (User.Identity.IsAuthenticated)
+                Redirect("/");
+
+            var activecodeVM = new ActiveCodeViewModel { Phone = phone };
+
+            return View(activecodeVM);
+        }
+
+
+
+        [HttpPost("Active-Code/{phone}"),ValidateAntiForgeryToken]
+        public async Task<IActionResult> ActivateCode(ActiveCodeViewModel activeCodeViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var result =await _userServices.ActiveCodeAsync(activeCodeViewModel);
+                switch (result)
+                {
+                    case ActiveCodeResult.Error:
+                        TempData[ErrorMessage] = "فعال سازی با مشکل روبه رو شد";
+                    break;
+                    case ActiveCodeResult.NotFound:
+                        TempData[ErrorMessage] = "کاربری با چنین مشخصاتی پیدا نشد";
+                        break;
+                    case ActiveCodeResult.Success:
+                        TempData[SuccessMessage] = "فعال سازی موفقیت آمیز بود";
+                       return Redirect("LogIn");
+                        
+                }
+            }
+
+            return View(activeCodeViewModel);
         }
     }
 }

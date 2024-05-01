@@ -10,11 +10,13 @@ namespace TorontoShop.Application.Services
         #region constractor
         private readonly IUserRepository _userRepository;
         private readonly IPasswordHelper _passwordHelper;
-        public UserServices(IUserRepository userRepository, IPasswordHelper passwordHelper)
+        private readonly ISmsService _smsService;
+        public UserServices(IUserRepository userRepository, IPasswordHelper passwordHelper, ISmsService smsService)
         {
             _userRepository = userRepository;
             _passwordHelper = passwordHelper;
-        }
+            _smsService = smsService;
+        }   
         #endregion
 
 
@@ -35,6 +37,8 @@ namespace TorontoShop.Application.Services
 
                 await _userRepository.RegisterUser(user);
                 await _userRepository.SaveChange();
+                await _smsService.SendVerificationCode(user.PhoneNumber, user.MobileActiveCode);
+
 
                 return RegisterUserStatus.Success;
             }
@@ -56,6 +60,23 @@ namespace TorontoShop.Application.Services
 
             return LogInUserStatus.Success;
 
+        }
+
+        public async Task<ActiveCodeResult> ActiveCodeAsync(ActiveCodeViewModel activeCodeViewModel)
+        {
+            var user =await _userRepository.GetUserByPhoneNumber(activeCodeViewModel.Phone);
+            if (user == null) return ActiveCodeResult.NotFound;
+
+            if (user.MobileActiveCode == activeCodeViewModel.ActiveCode)
+            {
+                user.MobileActiveCode = new Random().Next(10000, 99999).ToString();
+                user.IsMobileActive=true;
+                _userRepository.UpdateUser(user);
+                await _userRepository.SaveChange();
+                return ActiveCodeResult.Success;
+            }
+
+            return ActiveCodeResult.Error;
         }
 
         public async Task<User?> GetUserByPhoneAsync(string phone)

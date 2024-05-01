@@ -39,5 +39,10 @@ namespace TorontoShop.Infa.Data.Repository
         {
            return await _context.Users.FirstOrDefaultAsync(user => user.PhoneNumber == phoneNumber);
         }
+
+        public void UpdateUser(User user)
+        {
+            _context.Users.Update(user);
+        }
     }
 }

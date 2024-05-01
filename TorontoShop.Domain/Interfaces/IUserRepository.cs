@@ -16,5 +16,7 @@ namespace TorontoShop.Domain.Interfaces
         public Task SaveChange();
 
         public Task <User?> GetUserByPhoneNumber(string phoneNumber);
+
+        public void UpdateUser(User user);
     }
 }

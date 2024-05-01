@@ -10,6 +10,8 @@ namespace TorontoShop.Application.Interfaces
 
         Task<RegisterUserStatus> RegisterUserAsync(RegisterViewModel registerViewModel);
         Task<LogInUserStatus> LogInUserAsync(LogInViewModel logInViewModel);
+
+        Task<ActiveCodeResult> ActiveCodeAsync(ActiveCodeViewModel activeCodeViewModel);
         Task<User> GetUserByPhoneAsync(string phone);
 
 

@@ -8,5 +8,6 @@ namespace TorontoShop.Application.Interfaces
 {
     public interface ISmsService
     {
+        public Task SendVerificationCode(string phone, string activeCode);
     }
 }
