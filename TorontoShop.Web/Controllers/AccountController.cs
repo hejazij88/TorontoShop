@@ -101,7 +101,7 @@ namespace TorontoShop.Web.Controllers
         public async Task<IActionResult> LogOut()
         {
             await HttpContext.SignOutAsync();
-            TempData[ErrorMessage] = "خروج موفقیت آمیز";
+            TempData[InfoMessage] = "خروج موفقیت آمیز";
           return  Redirect("/");
         }
     }
