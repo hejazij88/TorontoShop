@@ -4,10 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TorontoShop.Domain.ViewModel.Site;
 
 namespace TorontoShop.Domain.ViewModel.Accounts
 {
-    public class LogInViewModel
+    public class LogInViewModel:Recaptcha
     {
         [Display(Name = "شماره همراه")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
