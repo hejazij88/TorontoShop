@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using TorontoShop.Application.Interfaces;
 using TorontoShop.Domain.ViewModel.Accounts;
 
@@ -36,8 +37,8 @@ namespace TorontoShop.Web.Controllers
                         break;
                     case RegisterUserStatus.Success:
                         TempData[SuccessMessage] = "ثبت نام موفقیت آمیز بود";
-                       return Redirect("/");
-                        
+                        return RedirectToAction("ActivateCode", "Account", new { mobile = registerViewModel.PhoneNumber });
+
                 }
 
             }
@@ -70,7 +71,6 @@ namespace TorontoShop.Web.Controllers
                         break;
                     case LogInUserStatus.NoActive:
                         TempData[ErrorMessage] = "حساب شما فعال نشده است";
-
                         break;
                     case LogInUserStatus.Success:
                         var user = await _userServices.GetUserByPhoneAsync(logInViewModel.PhoneNumber);
@@ -90,7 +90,7 @@ namespace TorontoShop.Web.Controllers
                         };
                         await HttpContext.SignInAsync(principle, property);
                         TempData[SuccessMessage] = "ورود موفقیت آمیز";
-                        return RedirectToAction("ActivateCode",user.PhoneNumber);
+                        return Redirect("/");
                 }
             }
             return View(logInViewModel);

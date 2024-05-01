@@ -52,7 +52,7 @@ namespace TorontoShop.Application.Services
 
             if (user == null) return LogInUserStatus.NotFound;
             if (user.IsBlocked) return LogInUserStatus.IsBlocked;
-            if (user.IsMobileActive) return LogInUserStatus.NoActive;
+            if (user.IsMobileActive==false) return LogInUserStatus.NoActive;
 
             if (user.Password != _passwordHelper.EncodePasswordMd5(logInViewModel.Password))
                 return LogInUserStatus.NotFound;

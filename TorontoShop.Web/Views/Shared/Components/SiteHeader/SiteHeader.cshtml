@@ -1,4 +1,11 @@
-﻿<header class="header header-intro-clearance header-4">
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using TorontoShop.Domain.Model.Accounts
+@using TorontoShop.Application.Extension
+@{
+    var user =(User)ViewBag.User;
+}
+
+<header class="header header-intro-clearance header-4">
     <div class="header-top">
         <div class="container">
             <div class="header-left">
@@ -13,7 +20,7 @@
                         <ul>
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <li><a asp-controller="Account" asp-action="LogIn">@User.Identity.Name</a></li>
+                                <li><a asp-controller="Account" asp-action="LogIn">@UserExtension.GetUserName(user)</a></li>
                                 <li><a asp-controller="Account" asp-action="LogOut">خروج</a></li>
                             }
                             else
