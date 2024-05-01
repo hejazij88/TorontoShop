@@ -7,6 +7,7 @@ using TorontoShop.Application.Services;
 using TorontoShop.Domain.Interfaces;
 using TorontoShop.Infa.Data.Context;
 using TorontoShop.Infa.Data.Repository;
+using TorontoShop.InfaIoC;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,12 +32,15 @@ builder.Services.AddAuthentication(option =>
     option.LoginPath = "/LogOut";
     option.ExpireTimeSpan = TimeSpan.FromMinutes(46200);
 });
-
-builder.Services.AddScoped<IUserServices, UserServices>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IPasswordHelper, PasswordHelper>();
+RegisterServices(builder.Services);
 
 builder.Services.AddSingleton<HtmlEncoder>(HtmlEncoder.Create(allowedRanges: new[] { UnicodeRanges.BasicLatin, UnicodeRanges.Arabic }));
+
+
+ static void RegisterServices(IServiceCollection services)
+{
+    DependencyContainer.RegisterServices(services);
+}
 
 var app = builder.Build();
 
