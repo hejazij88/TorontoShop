@@ -32,6 +32,8 @@ namespace TorontoShop.InfaIoC
 
             #region Tools
             services.AddScoped<IPasswordHelper, PasswordHelper>();
+            services.AddScoped<ISmsService, SmsService>();
+
 
             #endregion
         }
