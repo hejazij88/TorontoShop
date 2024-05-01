@@ -95,5 +95,14 @@ namespace TorontoShop.Web.Controllers
             }
             return View(logInViewModel);
         }
+
+
+        [HttpGet("LogOut")]
+        public async Task<IActionResult> LogOut()
+        {
+            await HttpContext.SignOutAsync();
+            TempData[ErrorMessage] = "خروج موفقیت آمیز";
+          return  Redirect("/");
+        }
     }
 }
