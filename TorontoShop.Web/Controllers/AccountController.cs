@@ -32,10 +32,14 @@ namespace TorontoShop.Web.Controllers
                 switch (result)
                 {
                     case RegisterUserStatus.PhoneExist:
+                        TempData[ErrorMessage] = "شماره موبایل در پایگاه داده وجود دارد";
                         break;
                     case RegisterUserStatus.Success:
+                        TempData[SuccessMessage] = "ثبت نام موفقیت آمیز بود";
+                        Redirect("/");
                         break;
                 }
+
             }
             return View(registerViewModel);
         }
