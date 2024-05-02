@@ -44,5 +44,11 @@ namespace TorontoShop.Infa.Data.Repository
         {
             _context.Users.Update(user);
         }
+
+        public async Task<User> GetUserById(Guid userId)
+        {
+            return await _context.Users.AsQueryable()
+                .SingleOrDefaultAsync(c => c.Id == userId);
+        }
     }
 }

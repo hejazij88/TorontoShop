@@ -71,8 +71,4 @@
     <ProjectReference Include="..\TorontoShop.InfaIoC\TorontoShop.InfaIoC.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Areas\PanelUser\Views\Shared\" />
-  </ItemGroup>
-
 </Project>

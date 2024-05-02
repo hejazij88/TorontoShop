@@ -16,7 +16,7 @@ namespace TorontoShop.Application.Services
             _userRepository = userRepository;
             _passwordHelper = passwordHelper;
             _smsService = smsService;
-        }   
+        }
         #endregion
 
 
@@ -52,7 +52,7 @@ namespace TorontoShop.Application.Services
 
             if (user == null) return LogInUserStatus.NotFound;
             if (user.IsBlocked) return LogInUserStatus.IsBlocked;
-            if (user.IsMobileActive==false) return LogInUserStatus.NoActive;
+            if (user.IsMobileActive == false) return LogInUserStatus.NoActive;
 
             if (user.Password != _passwordHelper.EncodePasswordMd5(logInViewModel.Password))
                 return LogInUserStatus.NotFound;
@@ -64,13 +64,13 @@ namespace TorontoShop.Application.Services
 
         public async Task<ActiveCodeResult> ActiveCodeAsync(ActiveCodeViewModel activeCodeViewModel)
         {
-            var user =await _userRepository.GetUserByPhoneNumber(activeCodeViewModel.Phone);
+            var user = await _userRepository.GetUserByPhoneNumber(activeCodeViewModel.Phone);
             if (user == null) return ActiveCodeResult.NotFound;
 
             if (user.MobileActiveCode == activeCodeViewModel.ActiveCode)
             {
                 user.MobileActiveCode = new Random().Next(10000, 99999).ToString();
-                user.IsMobileActive=true;
+                user.IsMobileActive = true;
                 _userRepository.UpdateUser(user);
                 await _userRepository.SaveChange();
                 return ActiveCodeResult.Success;
@@ -83,5 +83,11 @@ namespace TorontoShop.Application.Services
         {
             return await _userRepository.GetUserByPhoneNumber(phone);
         }
+
+        public async Task<User> GetUserById(Guid userId)
+        {
+            return await _userRepository.GetUserById(userId);
+        }
+
     }
 }

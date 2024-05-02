@@ -13,6 +13,8 @@ namespace TorontoShop.Application.Interfaces
 
         Task<ActiveCodeResult> ActiveCodeAsync(ActiveCodeViewModel activeCodeViewModel);
         Task<User> GetUserByPhoneAsync(string phone);
+        Task<User> GetUserById(Guid userId);
+
 
 
     }
