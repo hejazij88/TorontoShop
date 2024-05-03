@@ -20,7 +20,7 @@
                         <ul>
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <li><a asp-controller="Account" asp-action="LogIn">@UserExtension.GetUserName(user)</a></li>
+                                <li><a asp-area="User" asp-controller="Home" asp-action="Index">@UserExtension.GetUserName(user)</a></li>
                                 <li><a asp-controller="Account" asp-action="LogOut">خروج</a></li>
                             }
                             else

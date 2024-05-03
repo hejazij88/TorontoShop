@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using TorontoShop.Domain.Model.Accounts;
 using TorontoShop.Domain.ViewModel.Accounts;
 
@@ -14,6 +15,10 @@ namespace TorontoShop.Application.Interfaces
         Task<ActiveCodeResult> ActiveCodeAsync(ActiveCodeViewModel activeCodeViewModel);
         Task<User> GetUserByPhoneAsync(string phone);
         Task<User> GetUserById(Guid userId);
+
+        Task<EditUserProfileViewModel> GetUserProfile(Guid id);
+
+        Task<EditUserProfileResult> editUserProfileTask(Guid id, IFormFile formFile, EditUserProfileViewModel editUserProfileViewModel);
 
 
 

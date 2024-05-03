@@ -1,4 +1,7 @@
-﻿using TorontoShop.Application.Interfaces;
+﻿using Microsoft.AspNetCore.Http;
+using TorontoShop.Application.Extension;
+using TorontoShop.Application.Interfaces;
+using TorontoShop.Application.Utils;
 using TorontoShop.Domain.Interfaces;
 using TorontoShop.Domain.Model.Accounts;
 using TorontoShop.Domain.ViewModel.Accounts;
@@ -89,5 +92,43 @@ namespace TorontoShop.Application.Services
             return await _userRepository.GetUserById(userId);
         }
 
+        public async Task<EditUserProfileViewModel> GetUserProfile(Guid id)
+        {
+            var user=await _userRepository.GetUserById(id);
+            if (user == null) return null;
+
+            EditUserProfileViewModel editUserProfileViewModel= new EditUserProfileViewModel
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Avatar = user.Avatar,
+                Gender = user.Gender,
+                PhoneNumber = user.PhoneNumber
+            };
+            return editUserProfileViewModel;
+        }
+
+        public async Task<EditUserProfileResult> editUserProfileTask(Guid id, IFormFile avatar, EditUserProfileViewModel editUserProfileViewModel)
+        {
+            var user = await _userRepository.GetUserById(id);
+            if (user == null) return EditUserProfileResult.NotFound;
+
+            user.FirstName = editUserProfileViewModel.FirstName;
+            user.LastName = editUserProfileViewModel.LastName;
+            user.Gender = editUserProfileViewModel.Gender;
+
+            if (avatar != null && avatar.IsImage())
+            {
+                var imageName = Guid.NewGuid().ToString("N")+ Path.GetExtension(avatar.FileName);
+                avatar.AddImageToServer(imageName, PathExtensions.UserAvatarOriginServer, 150, 150,
+                    PathExtensions.UserAvatarThumbServer);
+                user.Avatar = imageName;
+            }
+
+            _userRepository.UpdateUser(user);
+            await _userRepository.SaveChange();
+
+            return EditUserProfileResult.Success;
+        }
     }
 }
