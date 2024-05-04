@@ -22,9 +22,6 @@ namespace TorontoShop.Domain.ViewModel.Accounts
         [Display(Name = "شماره همراه")]
         public string PhoneNumber { get; set; }
 
-        [Display(Name = "آواتار")]
-        public string Avatar { get; set; }
-
         [Display(Name = "جنسیت")]
         public Gender Gender { get; set; }
     }

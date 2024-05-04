@@ -101,7 +101,6 @@ namespace TorontoShop.Application.Services
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Avatar = user.Avatar,
                 Gender = user.Gender,
                 PhoneNumber = user.PhoneNumber
             };
