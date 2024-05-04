@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TorontoShop.Domain.Model.BaseEntities;
+using TorontoShop.Domain.Model.Wallet;
 
 namespace TorontoShop.Domain.Model.Accounts
 {
@@ -43,8 +44,11 @@ namespace TorontoShop.Domain.Model.Accounts
         public bool IsBlocked { get; set; }
 
         [Display(Name = "جنسیت")]
-
         public Gender Gender { get; set; }
+
+        #region relations
+        public ICollection<UserWallet> UserWallets { get; set; }
+        #endregion
     }
 
     public enum Gender

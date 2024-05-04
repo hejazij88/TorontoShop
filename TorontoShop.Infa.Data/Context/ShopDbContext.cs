@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TorontoShop.Domain.Model.Accounts;
+using TorontoShop.Domain.Model.Wallet;
 
 namespace TorontoShop.Infa.Data.Context
 {
@@ -14,6 +15,8 @@ namespace TorontoShop.Infa.Data.Context
         {
         }
         public DbSet<User> Users { get; set; }
+
+        public DbSet<UserWallet> Wallets { get; set; }
 
     }
 
