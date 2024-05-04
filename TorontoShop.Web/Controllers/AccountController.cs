@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using TorontoShop.Application.Interfaces;
 using TorontoShop.Domain.ViewModel.Accounts;
+using TorontoShop.Domain.ViewModel.Wallet;
 
 namespace TorontoShop.Web.Controllers
 {
@@ -141,5 +142,6 @@ namespace TorontoShop.Web.Controllers
 
             return View(activeCodeViewModel);
         }
+
     }
 }
