@@ -129,5 +129,25 @@ namespace TorontoShop.Application.Services
 
             return EditUserProfileResult.Success;
         }
+
+        public async Task<ChangePasswordResult> ChangePasswordAsync(Guid id, ChangePasswordViewModel changePasswordViewModel)
+        {
+            var user=await _userRepository.GetUserById(id);
+            if (user != null)
+            {
+                var newPassword = _passwordHelper.EncodePasswordMd5(changePasswordViewModel.NewPassword);
+                if (user.Password != newPassword)
+                {
+                    user.Password= newPassword;
+                    _userRepository.UpdateUser(user);
+                    await _userRepository.SaveChange();
+                    return ChangePasswordResult.Success;
+                }
+                return ChangePasswordResult.PasswordEqual;
+            }
+
+            return ChangePasswordResult.NotFound;
+
+        }
     }
 }
