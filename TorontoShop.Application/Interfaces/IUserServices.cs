@@ -18,7 +18,7 @@ namespace TorontoShop.Application.Interfaces
 
         Task<EditUserProfileViewModel> GetUserProfile(Guid id);
 
-        Task<EditUserProfileResult> editUserProfileTask(Guid id, IFormFile formFile, EditUserProfileViewModel editUserProfileViewModel);
+        Task<EditUserProfileResult> EditUserProfileAsync(Guid id, IFormFile formFile, EditUserProfileViewModel editUserProfileViewModel);
 
 
 

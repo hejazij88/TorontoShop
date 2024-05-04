@@ -108,7 +108,7 @@ namespace TorontoShop.Application.Services
             return editUserProfileViewModel;
         }
 
-        public async Task<EditUserProfileResult> editUserProfileTask(Guid id, IFormFile avatar, EditUserProfileViewModel editUserProfileViewModel)
+        public async Task<EditUserProfileResult> EditUserProfileAsync(Guid id, IFormFile avatar, EditUserProfileViewModel editUserProfileViewModel)
         {
             var user = await _userRepository.GetUserById(id);
             if (user == null) return EditUserProfileResult.NotFound;

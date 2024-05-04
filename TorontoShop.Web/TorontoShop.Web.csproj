@@ -71,4 +71,8 @@
     <ProjectReference Include="..\TorontoShop.InfaIoC\TorontoShop.InfaIoC.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\img\" />
+  </ItemGroup>
+
 </Project>
