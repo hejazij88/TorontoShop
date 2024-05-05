@@ -39,5 +39,22 @@ namespace TorontoShop.Application.Services
             await _userWalletRepository.SaveChangeAsync();
             return wallet.Id;
         }
+
+        public async Task<bool> UpdateWalletForCharge(UserWallet wallet)
+        {
+            if (wallet != null)
+            {
+                wallet.IsPay = true;
+                _userWalletRepository.UpdateWallet(wallet);
+                await _userWalletRepository.SaveChangeAsync();
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<UserWallet> GetUserWalletById(Guid walletId)
+        {
+            return await _userWalletRepository.GetUserWalletById(walletId);
+        }
     }
 }

@@ -14,7 +14,9 @@ namespace TorontoShop.Web.Areas.User.Controllers
         private readonly IUserServices _userServices;
         private readonly IUserWalletService _userWalletService;
         private readonly IConfiguration _configuration;
-        public AccountController(IUserServices userServices, IUserWalletService userWalletService, IConfiguration configuration)
+
+        public AccountController(IUserServices userServices, IUserWalletService userWalletService,
+            IConfiguration configuration)
         {
             _userServices = userServices;
             _userWalletService = userWalletService;
@@ -25,7 +27,7 @@ namespace TorontoShop.Web.Areas.User.Controllers
         [HttpGet("edit-user-profile")]
         public async Task<IActionResult> EditUserProfile()
         {
-            var user =await _userServices.GetUserProfile(User.GetUserId());
+            var user = await _userServices.GetUserProfile(User.GetUserId());
             if (user == null) return NotFound();
 
             return View(user);
@@ -33,11 +35,13 @@ namespace TorontoShop.Web.Areas.User.Controllers
 
 
         [HttpPost("edit-user-profile"), ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditUserProfile(EditUserProfileViewModel editUserProfileViewModel, IFormFile avatar)
+        public async Task<IActionResult> EditUserProfile(EditUserProfileViewModel editUserProfileViewModel,
+            IFormFile avatar)
         {
             if (ModelState.IsValid)
             {
-                var result = await _userServices.EditUserProfileAsync(User.GetUserId(),avatar,editUserProfileViewModel);
+                var result =
+                    await _userServices.EditUserProfileAsync(User.GetUserId(), avatar, editUserProfileViewModel);
                 switch (result)
                 {
                     case EditUserProfileResult.NotFound:
@@ -45,7 +49,7 @@ namespace TorontoShop.Web.Areas.User.Controllers
                         break;
                     case EditUserProfileResult.Success:
                         TempData[SuccessMessage] = "با موفقیت ذخیره شد";
-                       return RedirectToAction("EditUserProfile");
+                        return RedirectToAction("EditUserProfile");
                 }
             }
 
@@ -81,6 +85,7 @@ namespace TorontoShop.Web.Areas.User.Controllers
                         return RedirectToAction("LogIn", "Account", new { area = "" });
                 }
             }
+
             return View(changePasswordViewModel);
         }
 
@@ -96,13 +101,15 @@ namespace TorontoShop.Web.Areas.User.Controllers
         {
             if (ModelState.IsValid)
             {
-                var walletId = await _userWalletService.ChargeWalletAsync(User.GetUserId(), chargeUserWalletViewModel, $"شارژ به مبلغ {chargeUserWalletViewModel.Amount}");
+                var walletId = await _userWalletService.ChargeWalletAsync(User.GetUserId(), chargeUserWalletViewModel,
+                    $"شارژ به مبلغ {chargeUserWalletViewModel.Amount}");
 
                 #region payment
+
                 var payment = new Payment(chargeUserWalletViewModel.Amount);
                 var url = _configuration.GetSection("DefaultUrl")["Host"] + "/user/online-payment/" + walletId;
                 var result = payment.PaymentRequest("شارژ کیف پول", url);
-                
+
                 if (result.Result.Status == 100)
                 {
                     return Redirect("https://sandbox.zarinpal.com/pg/StartPay/" + result.Result.Authority);
@@ -114,7 +121,39 @@ namespace TorontoShop.Web.Areas.User.Controllers
 
                 #endregion
             }
+
             return View(chargeUserWalletViewModel);
+        }
+
+
+        [HttpGet("online-payment/{id}")]
+        public async Task<IActionResult> OnlinePayment(Guid id)
+        {
+            if (HttpContext.Request.Query["Status"] != "" &&
+                HttpContext.Request.Query["Status"].ToString().ToLower() == "ok" &&
+                HttpContext.Request.Query["Authority"] != "")
+            {
+                string authority = HttpContext.Request.Query["Authority"];
+                var wallet = await _userWalletService.GetUserWalletById(id);
+                if (wallet != null)
+                {
+                    var payment = new Payment(wallet.Amount);
+                    var result = payment.Verification(authority).Result;
+
+                    if (result.Status == 100)
+                    {
+                        ViewBag.RefId = result.RefId;
+                        ViewBag.Success = true;
+                        await _userWalletService.UpdateWalletForCharge(wallet);
+                    }
+
+                    return View();
+                }
+
+                return NotFound();
+            }
+
+            return View();
         }
     }
 }

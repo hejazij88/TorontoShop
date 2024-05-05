@@ -1,4 +1,5 @@
-﻿using TorontoShop.Domain.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using TorontoShop.Domain.Interfaces;
 using TorontoShop.Domain.Model.Wallet;
 using TorontoShop.Infa.Data.Context;
 
@@ -15,6 +16,17 @@ public class UserWalletRepository:IUserWalletRepository
     public async Task CreateWalletAsync(UserWallet wallet)
     {
         await _context.Wallets.AddAsync(wallet);
+    }
+
+    public async Task<UserWallet> GetUserWalletById(Guid walletId)
+    {
+        return await _context.Wallets.AsQueryable()
+            .SingleOrDefaultAsync(c => c.Id == walletId);
+    }
+
+    public void UpdateWallet(UserWallet wallet)
+    {
+        _context.Wallets.Update(wallet);
     }
 
     public async Task SaveChangeAsync()
