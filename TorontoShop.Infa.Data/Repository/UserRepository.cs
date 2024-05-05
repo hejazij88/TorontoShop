@@ -1,8 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using TorontoShop.Domain.Interfaces;
 using TorontoShop.Domain.Model.Accounts;
 using TorontoShop.Domain.ViewModel.Admin.Account;
@@ -84,6 +80,84 @@ namespace TorontoShop.Infa.Data.Repository
                     PhoneNumber = x.PhoneNumber,
                     UserGender = x.Gender
                 }).SingleOrDefaultAsync();
+        }
+
+        public async Task<CreateOrEditRoleViewModel> GetEditRoleById(Guid roleId)
+        {
+            return await _context.Roles.AsQueryable()
+                .Include(c => c.RolePermissions)
+                .Where(c => c.Id == roleId)
+                .Select(x => new CreateOrEditRoleViewModel
+                {
+                    Id = x.Id,
+                    RoleTitle = x.RoleTitle,
+                    SelectedPermission = x.RolePermissions.Select(c => c.PermissionId).ToList()
+
+                }).SingleOrDefaultAsync();
+        }
+
+        public async Task<FilterRolesViewModel> FilterRoles(FilterRolesViewModel filter)
+        {
+            var query = _context.Roles.AsQueryable();
+
+            #region filter
+            if (!string.IsNullOrEmpty(filter.RoleName))
+            {
+                query = query.Where(c => EF.Functions.Like(c.RoleTitle, $"%{filter.RoleName}%"));
+            }
+            #endregion
+
+            #region paging
+            var pager = Pager.Build(filter.PageId, await query.CountAsync(), filter.TakeEntity, filter.CountForShowAfterAndBefor);
+            var allData = await query.Paging(pager).ToListAsync();
+            #endregion
+
+            return filter.SetPaging(pager).SetRoles(allData);
+        }
+
+        public async Task CreateRole(Role role)
+        {
+            await _context.Roles.AddAsync(role);
+        }
+
+        public void UpdateRole(Role role)
+        {
+            _context.Roles.Update(role);
+        }
+
+        public async Task<Role> GetRoleById(Guid id)
+        {
+            return await _context.Roles.SingleOrDefaultAsync(c => c.Id == id);
+        }
+
+        public async Task RemoveAllPermissionSelectedRole(Guid roleId)
+        {
+            var allRolePermissions = await _context.RolePermissions.Where(c => c.RoleId == roleId).ToListAsync();
+
+            if (allRolePermissions.Any())
+            {
+                _context.RolePermissions.RemoveRange(allRolePermissions);
+            }
+        }
+
+        public async Task AddPermissionToRole(List<Guid> selectedPermission, Guid roleId)
+        {
+            if (selectedPermission != null && selectedPermission.Any())
+            {
+                var rolePermissions = new List<RolePermission>();
+
+                foreach (var permissionId in selectedPermission)
+                {
+                    rolePermissions.Add(new RolePermission
+                    {
+                        PermissionId = permissionId,
+                        RoleId = roleId,
+
+                    });
+                }
+
+                await _context.RolePermissions.AddRangeAsync(rolePermissions);
+            }
         }
     }
 }

@@ -5,7 +5,7 @@ namespace TorontoShop.Domain.Model.Accounts
     public class RolePermission:BaseEntity
     {
         #region properties
-        public long RoleId { get; set; }
+        public Guid RoleId { get; set; }
         public Guid PermissionId { get; set; }
         #endregion
 

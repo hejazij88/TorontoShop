@@ -25,6 +25,15 @@ namespace TorontoShop.Domain.Interfaces
         Task<FilterUserViewModel> FilterUsers(FilterUserViewModel filter);
         Task<EditUserFromAdmin> GetEditUserFromAdmin(Guid userId);
 
+        Task<CreateOrEditRoleViewModel> GetEditRoleById(Guid roleId);
+        Task<FilterRolesViewModel> FilterRoles(FilterRolesViewModel filter);
+        Task CreateRole(Role role);
+        void UpdateRole(Role role);
+        Task<Role> GetRoleById(Guid id);
+        Task RemoveAllPermissionSelectedRole(Guid roleId);
+        Task AddPermissionToRole(List<Guid> selectedPermission, Guid roleId);
+
+
 
 
 

@@ -184,5 +184,64 @@ namespace TorontoShop.Application.Services
             return EditUserFromAdminResult.Success;
 
         }
+
+        public async Task<CreateOrEditRoleViewModel> GetEditRoleById(Guid roleId)
+        {
+            return await _userRepository.GetEditRoleById(roleId);
+        }
+
+        public async Task<CreateOrEditRoleResult> CreateOrEditRole(CreateOrEditRoleViewModel createOrEditRole)
+        {
+            if (createOrEditRole.Id != Guid.Empty)
+            {
+                var role = await _userRepository.GetRoleById(createOrEditRole.Id);
+
+                if (role == null)
+                    return CreateOrEditRoleResult.NotFound;
+
+                role.RoleTitle = createOrEditRole.RoleTitle;
+
+                _userRepository.UpdateRole(role);
+
+                await _userRepository.RemoveAllPermissionSelectedRole(createOrEditRole.Id);
+
+                if (createOrEditRole.SelectedPermission == null)
+                {
+                    return CreateOrEditRoleResult.NotExistPermissions;
+                }
+                await _userRepository.AddPermissionToRole(createOrEditRole.SelectedPermission, createOrEditRole.Id);
+                await _userRepository.SaveChange();
+
+                return CreateOrEditRoleResult.Success;
+            }
+            else
+            {
+                //create
+
+                var newRole = new Role
+                {
+                    RoleTitle = createOrEditRole.RoleTitle
+                };
+
+                await _userRepository.CreateRole(newRole);
+
+                if (createOrEditRole.SelectedPermission == null)
+                {
+                    return CreateOrEditRoleResult.NotExistPermissions;
+                }
+
+                await _userRepository.AddPermissionToRole(createOrEditRole.SelectedPermission, newRole.Id);
+
+                await _userRepository.SaveChange();
+
+
+                return CreateOrEditRoleResult.Success;
+            }
+        }
+
+        public async Task<FilterRolesViewModel> FilterRoles(FilterRolesViewModel filter)
+        {
+            return await _userRepository.FilterRoles(filter);
+        }
     }
 }
