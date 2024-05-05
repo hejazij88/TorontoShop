@@ -12,8 +12,8 @@ namespace TorontoShop.Application.Interfaces
     {
         Task<Guid> ChargeWalletAsync(Guid userId,ChargeUserWalletViewModel chargeUserWalletViewModel,string description);
         Task<bool> UpdateWalletForCharge(UserWallet wallet);
-
-
         Task<UserWallet> GetUserWalletById(Guid walletId);
+        Task<FilterWalletViewModel> FilterWallets(FilterWalletViewModel filter);
+
     }
 }

@@ -56,5 +56,11 @@ namespace TorontoShop.Application.Services
         {
             return await _userWalletRepository.GetUserWalletById(walletId);
         }
+
+        public async Task<FilterWalletViewModel> FilterWallets(FilterWalletViewModel filter)
+        {
+            return await _userWalletRepository.FilterWallets(filter);
+
+        }
     }
 }

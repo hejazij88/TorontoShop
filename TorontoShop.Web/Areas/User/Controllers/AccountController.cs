@@ -155,5 +155,13 @@ namespace TorontoShop.Web.Areas.User.Controllers
 
             return View();
         }
+
+
+        [HttpGet("user-wallet")]
+        public async Task<IActionResult> UserWallet(FilterWalletViewModel filter)
+        {
+            filter.UserId = User.GetUserId();
+            return View(await _userWalletService.FilterWallets(filter));
+        }
     }
 }
