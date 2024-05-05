@@ -8,9 +8,9 @@ namespace TorontoShop.Web.Areas.PanelUser.Controllers
     [Route("user")]
     public class UserBaseController : Controller
     {
-        protected string ErrorMessage = "ErrorMessage";
-        protected string SuccessMessage = "SuccessMessage";
-        protected string WarningMessage = "WarningMessage";
-        protected string InfoMessage = "InfoMessage";
+            protected string ErrorMessage = "ErrorMessage";
+            protected string SuccessMessage = "SuccessMessage";
+            protected string WarningMessage = "WarningMessage";
+            protected string InfoMessage = "InfoMessage";
     }
 }

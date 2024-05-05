@@ -5,6 +5,7 @@ using TorontoShop.Application.Utils;
 using TorontoShop.Domain.Interfaces;
 using TorontoShop.Domain.Model.Accounts;
 using TorontoShop.Domain.ViewModel.Accounts;
+using TorontoShop.Domain.ViewModel.Admin.Account;
 
 namespace TorontoShop.Application.Services
 {
@@ -148,6 +149,11 @@ namespace TorontoShop.Application.Services
 
             return ChangePasswordResult.NotFound;
 
+        }
+
+        public async Task<FilterUserViewModel> FilterUsers(FilterUserViewModel filterUserViewModel)
+        {
+            return await _userRepository.FilterUsers(filterUserViewModel);
         }
     }
 }

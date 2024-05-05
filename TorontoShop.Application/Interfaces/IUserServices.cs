@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using TorontoShop.Domain.Model.Accounts;
 using TorontoShop.Domain.ViewModel.Accounts;
+using TorontoShop.Domain.ViewModel.Admin.Account;
 
 namespace TorontoShop.Application.Interfaces
 {
@@ -19,7 +20,10 @@ namespace TorontoShop.Application.Interfaces
         Task<EditUserProfileViewModel> GetUserProfile(Guid id);
 
         Task<EditUserProfileResult> EditUserProfileAsync(Guid id, IFormFile formFile, EditUserProfileViewModel editUserProfileViewModel);
+        
         Task<ChangePasswordResult> ChangePasswordAsync(Guid id, ChangePasswordViewModel changePasswordViewModel);
+
+        Task<FilterUserViewModel> FilterUsers(FilterUserViewModel filterUserViewModel);
 
 
 

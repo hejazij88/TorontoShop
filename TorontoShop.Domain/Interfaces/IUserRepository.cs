@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TorontoShop.Domain.Model.Accounts;
 using TorontoShop.Domain.ViewModel.Accounts;
+using TorontoShop.Domain.ViewModel.Admin.Account;
 
 namespace TorontoShop.Domain.Interfaces
 {
@@ -21,6 +22,8 @@ namespace TorontoShop.Domain.Interfaces
         public void UpdateUser(User user);
 
         public Task<User> GetUserById(Guid userId);
+        Task<FilterUserViewModel> FilterUsers(FilterUserViewModel filter);
+
 
 
     }

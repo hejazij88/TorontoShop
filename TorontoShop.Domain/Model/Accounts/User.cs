@@ -48,6 +48,8 @@ namespace TorontoShop.Domain.Model.Accounts
 
         #region relations
         public ICollection<UserWallet> UserWallets { get; set; }
+        public ICollection<UserRole> UserRoles { get; set; }
+
         #endregion
     }
 

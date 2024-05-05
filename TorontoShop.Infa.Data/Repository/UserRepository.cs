@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TorontoShop.Domain.Interfaces;
 using TorontoShop.Domain.Model.Accounts;
+using TorontoShop.Domain.ViewModel.Admin.Account;
+using TorontoShop.Domain.ViewModel.Paging;
 using TorontoShop.Infa.Data.Context;
 
 namespace TorontoShop.Infa.Data.Repository
@@ -49,6 +51,25 @@ namespace TorontoShop.Infa.Data.Repository
         {
             return await _context.Users.AsQueryable()
                 .SingleOrDefaultAsync(c => c.Id == userId);
+        }
+
+        public async Task<FilterUserViewModel> FilterUsers(FilterUserViewModel filter)
+        {
+            var query = _context.Users.AsQueryable();
+
+
+            if (!string.IsNullOrEmpty(filter.PhoneNumber))
+            {
+                query = query.Where(c => c.PhoneNumber == filter.PhoneNumber);
+            }
+
+
+            #region paging
+            var pager = Pager.Build(filter.PageId, await query.CountAsync(), filter.TakeEntity, filter.CountForShowAfterAndBefor);
+            var allData = await query.Paging(pager).ToListAsync();
+            #endregion
+
+            return filter.SetPaging(pager).SetUsers(allData);
         }
     }
 }
