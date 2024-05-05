@@ -71,5 +71,19 @@ namespace TorontoShop.Infa.Data.Repository
 
             return filter.SetPaging(pager).SetUsers(allData);
         }
+
+        public async Task<EditUserFromAdmin> GetEditUserFromAdmin(Guid userId)
+        {
+            return await _context.Users.AsQueryable()
+                .Where(c => c.Id == userId)
+                .Select(x => new EditUserFromAdmin
+                {
+                    UserId = x.Id,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    PhoneNumber = x.PhoneNumber,
+                    UserGender = x.Gender
+                }).SingleOrDefaultAsync();
+        }
     }
 }

@@ -23,6 +23,9 @@ namespace TorontoShop.Domain.Interfaces
 
         public Task<User> GetUserById(Guid userId);
         Task<FilterUserViewModel> FilterUsers(FilterUserViewModel filter);
+        Task<EditUserFromAdmin> GetEditUserFromAdmin(Guid userId);
+
+
 
 
 

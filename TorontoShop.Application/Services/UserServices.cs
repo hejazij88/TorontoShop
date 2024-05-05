@@ -155,5 +155,34 @@ namespace TorontoShop.Application.Services
         {
             return await _userRepository.FilterUsers(filterUserViewModel);
         }
+
+        public async Task<EditUserFromAdmin> GetEditUserFromAdmin(Guid userId)
+        {
+            return await _userRepository.GetEditUserFromAdmin(userId);
+        }
+
+        public async Task<EditUserFromAdminResult> EditUserFromAdmin(EditUserFromAdmin editUser)
+        {
+            var user = await _userRepository.GetUserById(editUser.UserId);
+
+            if (user == null)
+                return EditUserFromAdminResult.NotFound;
+
+
+            user.FirstName = editUser.FirstName;
+            user.LastName = editUser.LastName;
+            user.Gender = editUser.UserGender;
+
+            if (!string.IsNullOrEmpty(editUser.Password))
+            {
+                user.Password = _passwordHelper.EncodePasswordMd5(editUser.Password);
+            }
+
+            _userRepository.UpdateUser(user);
+            await _userRepository.SaveChange();
+
+            return EditUserFromAdminResult.Success;
+
+        }
     }
 }

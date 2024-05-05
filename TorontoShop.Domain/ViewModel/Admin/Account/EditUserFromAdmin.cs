@@ -6,7 +6,7 @@ namespace TorontoShop.Domain.ViewModel.Admin.Account
 {
     public class EditUserFromAdmin
     {
-        public long Id { get; set; }
+        public Guid UserId { get; set; }
 
         [Display(Name = "نام")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]

@@ -25,6 +25,11 @@ namespace TorontoShop.Application.Interfaces
 
         Task<FilterUserViewModel> FilterUsers(FilterUserViewModel filterUserViewModel);
 
+        Task<EditUserFromAdmin> GetEditUserFromAdmin(Guid userId);
+        Task<EditUserFromAdminResult> EditUserFromAdmin(EditUserFromAdmin editUser);
+
+
+
 
 
 
