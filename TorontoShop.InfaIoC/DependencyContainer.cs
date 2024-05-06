@@ -21,6 +21,8 @@ namespace TorontoShop.InfaIoC
             #region Services
             services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<IUserWalletService, UserWalletService>();
+            services.AddScoped<IProductService, ProductService>();
+
 
             #endregion
 
@@ -28,6 +30,7 @@ namespace TorontoShop.InfaIoC
             #region Reposirory
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserWalletRepository, UserWalletRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
 
 
             #endregion
