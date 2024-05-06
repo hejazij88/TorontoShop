@@ -33,6 +33,11 @@ namespace TorontoShop.Domain.Interfaces
         Task RemoveAllPermissionSelectedRole(Guid roleId);
         Task AddPermissionToRole(List<Guid> selectedPermission, Guid roleId);
 
+        Task<List<Role>> GetAllActiveRoles();
+        Task<List<Permission>> GetAllActivePermission();
+
+
+
 
 
 

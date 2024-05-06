@@ -243,5 +243,16 @@ namespace TorontoShop.Application.Services
         {
             return await _userRepository.FilterRoles(filter);
         }
+
+        public async Task<List<Permission>> GetAllActivePermission()
+        {
+            return await _userRepository.GetAllActivePermission();
+
+        }
+
+        public async Task<List<Role>> GetAllActiveRoles()
+        {
+            return await _userRepository.GetAllActiveRoles();
+        }
     }
 }

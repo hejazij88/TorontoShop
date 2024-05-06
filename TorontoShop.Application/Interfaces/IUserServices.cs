@@ -32,6 +32,10 @@ namespace TorontoShop.Application.Interfaces
         Task<CreateOrEditRoleViewModel> GetEditRoleById(Guid roleId);
         Task<CreateOrEditRoleResult> CreateOrEditRole(CreateOrEditRoleViewModel createOrEditRole);
         Task<FilterRolesViewModel> FilterRoles(FilterRolesViewModel filter);
+        Task<List<Permission>> GetAllActivePermission();
+        Task<List<Role>> GetAllActiveRoles();
+
+
 
 
 

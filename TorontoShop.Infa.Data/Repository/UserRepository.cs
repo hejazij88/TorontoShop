@@ -159,5 +159,15 @@ namespace TorontoShop.Infa.Data.Repository
                 await _context.RolePermissions.AddRangeAsync(rolePermissions);
             }
         }
+
+        public async Task<List<Role>> GetAllActiveRoles()
+        {
+            return await _context.Roles .AsQueryable().Where(role =>!role.IsDeleted ).ToListAsync();
+        }
+
+        public async Task<List<Permission>> GetAllActivePermission()
+        {
+            return await _context.Permissions.AsQueryable().Where(permission => !permission.IsDeleted).ToListAsync();
+        }
     }
 }
