@@ -2,5 +2,7 @@
 
 public interface IProductRepository
 {
-    
+
+    Task SaveChangeAsync();
+
 }

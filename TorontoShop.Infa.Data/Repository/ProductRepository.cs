@@ -11,4 +11,9 @@ public class ProductRepository:IProductRepository
     {
         _context = context;
     }
+
+    public async Task SaveChangeAsync()
+    {
+        await _context.SaveChangesAsync();
+    }
 }
