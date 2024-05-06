@@ -13,7 +13,7 @@ namespace TorontoShop.Domain.Model.Accounts
         [MaxLength(200, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
 
         public string Title { get; set; }
-        public Guid? ParentId { get; set; }
+        public Guid ParentId { get; set; }
         #endregion
 
         #region relations

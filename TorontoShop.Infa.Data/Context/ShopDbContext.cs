@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TorontoShop.Domain.Model.Accounts;
+using TorontoShop.Domain.Model.ProductEntity;
 using TorontoShop.Domain.Model.Wallet;
 
 namespace TorontoShop.Infa.Data.Context
@@ -21,6 +22,14 @@ namespace TorontoShop.Infa.Data.Context
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<RolePermission> RolePermissions { get; set; }
+
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductSelectedCategory> ProductSelectedCategories { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
+        public DbSet<ProductFuture> ProductsFutures { get; set; }
+        public DbSet<ProductGallery> Galleries { get; set; }
+
+
 
 
 
