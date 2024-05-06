@@ -37,6 +37,12 @@ namespace TorontoShop.Domain.Interfaces
         Task<List<Permission>> GetAllActivePermission();
 
 
+        Task RemoveAllUserSelectedRole(Guid userId);
+        Task AddUserToRole(List<Guid> selectedRole, Guid userId);
+        Task<List<Role>> GetAllActiveUserRole();
+
+
+
 
 
 

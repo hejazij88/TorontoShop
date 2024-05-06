@@ -78,7 +78,8 @@ namespace TorontoShop.Infa.Data.Repository
                     FirstName = x.FirstName,
                     LastName = x.LastName,
                     PhoneNumber = x.PhoneNumber,
-                    UserGender = x.Gender
+                    UserGender = x.Gender,
+                    RopleId = x.UserRoles.Where(role =>role.UserId==userId ).Select(role =>role.RoleId).ToList()
                 }).SingleOrDefaultAsync();
         }
 
@@ -168,6 +169,43 @@ namespace TorontoShop.Infa.Data.Repository
         public async Task<List<Permission>> GetAllActivePermission()
         {
             return await _context.Permissions.AsQueryable().Where(permission => !permission.IsDeleted).ToListAsync();
+        }
+
+        public async Task RemoveAllUserSelectedRole(Guid userId)
+        {
+            var allUserRoles = await _context.UserRoles.AsQueryable().Where(c => c.UserId == userId).ToListAsync();
+
+            if (allUserRoles.Any())
+            {
+                _context.UserRoles.RemoveRange(allUserRoles);
+
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task AddUserToRole(List<Guid> selectedRole, Guid userId)
+        {
+            if (selectedRole != null && selectedRole.Any())
+            {
+                var userRoles = new List<UserRole>();
+
+                foreach (var roleId in selectedRole)
+                {
+                    userRoles.Add(new UserRole
+                    {
+                        RoleId = roleId,
+                        UserId = userId
+                    });
+                }
+
+                await _context.UserRoles.AddRangeAsync(userRoles);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public Task<List<Role>> GetAllActiveUserRole()
+        {
+            throw new NotImplementedException();
         }
     }
 }

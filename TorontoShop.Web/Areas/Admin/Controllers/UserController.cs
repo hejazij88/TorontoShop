@@ -28,6 +28,7 @@ namespace TorontoShop.Web.Areas.Admin.Controllers
             {
                 return NotFound();
             }
+            ViewData["Roles"] = await _userServices.GetAllActiveRoles();
 
             return View(data);
         }
@@ -35,6 +36,8 @@ namespace TorontoShop.Web.Areas.Admin.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> EditUser(EditUserFromAdmin editUser)
         {
+            ViewData["Roles"] = await _userServices.GetAllActiveRoles();
+
             if (ModelState.IsValid)
             {
                 var result = await _userServices.EditUserFromAdmin(editUser);

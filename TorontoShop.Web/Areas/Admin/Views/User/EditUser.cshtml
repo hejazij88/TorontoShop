@@ -1,14 +1,15 @@
 ﻿@model TorontoShop.Domain.ViewModel.Admin.Account.EditUserFromAdmin
 @{
     ViewData["Title"] = "ویرایش کاربر";
+    var roles = ViewData["Roles"] as List<Role>;
 }
+<form asp-area="Admin" asp-controller="User" asp-action="EditUser" method="post">
 
-<div class="row mt-4">
-    <div class="col-md-8">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <p class="card-text">ویرایش اطلاعات</p>
-                <form asp-area="Admin" asp-controller="User" asp-action="EditUser" method="post">
+    <div class="row mt-4">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <p class="card-text">ویرایش اطلاعات</p>
                     <input type="hidden" asp-for="UserId" />
                     <div class="form-group">
                         <label class="form-lable">نام</label>
@@ -40,21 +41,33 @@
                     <div class="mt-5">
                         <button type="submit" class="btn btn-warning btn-block ">ویرایش اطلاعات</button>
                     </div>
-                </form>
 
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <p class="card-text">نقش ها</p>
+                    @if (roles != null && roles.Any())
+                    {
+                        @foreach (var role in roles)
+                        {
+                            var isPermissionSelected = Model.RopleId.Any(s => s == role.Id);
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" @(isPermissionSelected ? "checked" : "") name="@nameof(Model.RopleId)" value="@role.Id" />
+                                    <span class="text">@role.RoleTitle</span>
+                                </label>
+                            </div>
+                        }
+                    }
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <p class="card-text">نقش ها</p>
-
-            </div>
-        </div>
-    </div>
-</div>
+</form>
 
 @section scripts {
-    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScripts" />
 }
