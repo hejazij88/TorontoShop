@@ -13,7 +13,7 @@
             <div class="card-body">
 
                 <p class="card-text">@ViewData["Title"]</p>
-                <form asp-area="admin" asp-controller="User" asp-action="FilterProductCategories" id="filter-Form" method="get">
+                <form asp-area="admin" asp-controller="Product" asp-action="FilterProductCategories" id="filter-Form" method="get">
                     <input asp-for="PageId" type="hidden" />
                     <div class="form-group">
                         <label id="PhoneNumber" class="form-label">فیلتر براساس عنوان:</label>

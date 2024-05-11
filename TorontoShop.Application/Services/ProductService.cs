@@ -23,7 +23,6 @@ public class ProductService : IProductService
 
         var newCategory = new ProductCategory()
         {
-            ParentId = Guid.Empty,
             Title = categoryViewModel.Title,
             UrlName = categoryViewModel.UrlName
         };

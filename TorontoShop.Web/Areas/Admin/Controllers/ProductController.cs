@@ -31,8 +31,7 @@ namespace TorontoShop.Web.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateProductCategory(CreateProductCategoryViewModel productCategoryViewModel,
-            IFormFile image)
+        public async Task<IActionResult> CreateProductCategory(CreateProductCategoryViewModel productCategoryViewModel, IFormFile image)
         {
             if (ModelState.IsValid)
             {
