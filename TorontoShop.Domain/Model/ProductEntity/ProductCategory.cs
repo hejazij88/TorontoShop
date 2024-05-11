@@ -10,7 +10,7 @@ namespace TorontoShop.Domain.Model.ProductEntity
 {
     public class ProductCategory:BaseEntity
     {
-        public Guid ParentId { get; set; }
+        public Guid? ParentId { get; set; }
 
         [Display(Name = "نام")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
@@ -25,7 +25,7 @@ namespace TorontoShop.Domain.Model.ProductEntity
         [MaxLength(200, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
         public string ImageName { get; set; }
 
-        public ProductCategory Parent { get; set; }
+        public virtual ProductCategory Parent { get; set; }
         public ICollection<ProductSelectedCategory>ProductSelectedCategories { get; set; }
 
     }

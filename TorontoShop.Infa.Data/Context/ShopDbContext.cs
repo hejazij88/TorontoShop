@@ -25,7 +25,7 @@ namespace TorontoShop.Infa.Data.Context
 
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductSelectedCategory> ProductSelectedCategories { get; set; }
-        public DbSet<ProductCategory> ProductCategories { get; set; }
+        public DbSet<ProductCategory> ProductCategory { get; set; }
         public DbSet<ProductFuture> ProductsFutures { get; set; }
         public DbSet<ProductGallery> Galleries { get; set; }
 

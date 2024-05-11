@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using TorontoShop.Domain.Model.BaseEntities;
 
 namespace TorontoShop.Domain.Model.ProductEntity
 {
+    [Table("Product")]
     public class Product:BaseEntity
     {
 

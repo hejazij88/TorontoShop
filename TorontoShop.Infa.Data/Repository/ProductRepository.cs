@@ -24,22 +24,22 @@ public class ProductRepository:IProductRepository
 
     public async Task<bool> CheckUrlNameCategory(string url)
     {
-        return await _context.ProductCategories.AsQueryable().AnyAsync(category =>category.UrlName==url);
+        return await _context.ProductCategory.AsQueryable().AnyAsync(category =>category.UrlName==url);
     }
 
     public async Task AddProductCategory(ProductCategory productCategory)
     {
-        await _context.ProductCategories.AddAsync(productCategory);
+        await _context.ProductCategory.AddAsync(productCategory);
     }
 
     public async Task<bool> CheckUrlNameCategories(string urlName, Guid CategoryId)
     {
-        return await _context.ProductCategories.AsQueryable().AnyAsync(category => category.UrlName == urlName&&category.Id!=CategoryId);
+        return await _context.ProductCategory.AsQueryable().AnyAsync(category => category.UrlName == urlName&&category.Id!=CategoryId);
     }
 
     public async Task<ProductCategory> GetProductCategoryById(Guid id)
     {
-        return await _context.ProductCategories.AsQueryable().SingleOrDefaultAsync(category => category.Id == id);
+        return await _context.ProductCategory.AsQueryable().SingleOrDefaultAsync(category => category.Id == id);
     }
 
     public void UpdateProductCtaegory(ProductCategory category)
@@ -49,7 +49,7 @@ public class ProductRepository:IProductRepository
 
     public async Task<ProductCategoryFilterViewModel> FilterProductCategories(ProductCategoryFilterViewModel filter)
     {
-        var query = _context.ProductCategories.AsQueryable();
+        var query = _context.ProductCategory.AsQueryable();
 
         #region filter
         if (!string.IsNullOrEmpty(filter.Title))

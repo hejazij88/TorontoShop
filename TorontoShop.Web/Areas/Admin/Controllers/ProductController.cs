@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TorontoShop.Application.Interfaces;
+using TorontoShop.Domain.ViewModel.Admin.Product;
 
 namespace TorontoShop.Web.Areas.Admin.Controllers
 {
@@ -16,5 +17,11 @@ namespace TorontoShop.Web.Areas.Admin.Controllers
         {
             return View();
         }
+
+        public async Task<IActionResult> FilterProductCategories(ProductCategoryFilterViewModel filter)
+        {
+            return View(await _productService.ProductCategoryFilter(filter));
+        }
+
     }
 }
