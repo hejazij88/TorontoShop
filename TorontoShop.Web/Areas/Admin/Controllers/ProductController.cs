@@ -14,10 +14,6 @@ namespace TorontoShop.Web.Areas.Admin.Controllers
             _productService = productService;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         public async Task<IActionResult> FilterProductCategories(ProductCategoryFilterViewModel filter)
         {
@@ -43,6 +39,36 @@ namespace TorontoShop.Web.Areas.Admin.Controllers
                         break;
                     case CreateProductCategoryResult.Success:
                         TempData[SuccessMessage] = "با موفقیت ثبت شد";
+                        return RedirectToAction("FilterProductCategories");
+                }
+            }
+            return View(productCategoryViewModel);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> EditProductCategory(Guid productCategoryId)
+        {
+            var result = await _productService.GetEditProductCategory(productCategoryId);
+            if (result == null) NotFound();
+            
+                return View(result);
+            
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditProductCategory(EditProductCategoryViewModel productCategoryViewModel,IFormFile image)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _productService.EditProductCategory(productCategoryViewModel, image);
+                switch (result)
+                {
+                    case EditProductCategoryResult.IsExist:
+                        TempData[ErrorMessage] = "url تکراری است";
+                        break;
+                    case EditProductCategoryResult.Success:
+                        TempData[SuccessMessage] = "موفقیت آمیز";
                         return RedirectToAction("FilterProductCategories");
                 }
             }

@@ -10,7 +10,7 @@ namespace TorontoShop.Domain.ViewModel.Admin.Product
     {
         public Guid CategoryId { get; set; }
 
-        public string ImageName { get; set; }
+        public string? ImageName { get; set; }
     }
 
     public enum EditProductCategoryResult

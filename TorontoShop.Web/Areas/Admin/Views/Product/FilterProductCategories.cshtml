@@ -50,12 +50,12 @@
                                 <tr>
                                     <th scope="row">@index</th>
                                     <td>
-                                        <img src="@(PathExtensions.CategoryOrginServer+category.ImageName)" class="img-thumbnail" style="width:40px;">
+                                        <img src="@(PathExtensions.CategoryThumb+category.ImageName)" class="img-thumbnail" style="width:40px;"/>
                                     </td>
                                     <td>@category.Title</td>
                                     <td>@category.UrlName</td>
                                     <td>
-                                        <a class="btn btn-warning btn-sm" asp-area="Admin" asp-controller="Product" asp-action="EditProductCategory" asp-route-categoryId="@category.Id">ویرایش</a>
+                                        <a class="btn btn-warning btn-sm" asp-area="Admin" asp-controller="Product" asp-action="EditProductCategory" asp-route-productCategoryId="@category.Id">ویرایش</a>
                                     </td>
                                 </tr>
                                 index++;

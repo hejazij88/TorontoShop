@@ -29,7 +29,7 @@ public class ProductService : IProductService
         if (file != null && file.IsImage())
         {
             var imageName = Guid.NewGuid().ToString("N") + Path.GetExtension(file.FileName);
-            file.AddImageToServer(imageName, PathExtensions.CategoryOrginServer, 150, 150, PathExtensions.CategoryThumbServer);
+            file.AddImageToServer(imageName, PathExtensions.CategoryOriginServer, 150, 150, PathExtensions.CategoryThumbServer);
 
             newCategory.ImageName = imageName;
         }
@@ -55,7 +55,7 @@ public class ProductService : IProductService
         if (file != null && file.IsImage())
         {
             var imageName = Guid.NewGuid().ToString("N") + Path.GetExtension(file.FileName);
-            file.AddImageToServer(imageName, PathExtensions.CategoryOrginServer, 150, 150, PathExtensions.CategoryThumbServer, productCategory.ImageName);
+            file.AddImageToServer(imageName, PathExtensions.CategoryOriginServer, 150, 150, PathExtensions.CategoryThumbServer, productCategory.ImageName);
 
             productCategory.ImageName = imageName;
         }
