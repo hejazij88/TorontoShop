@@ -94,4 +94,39 @@ public class ProductService : IProductService
     {
         return await _productRepository.FilterProduct(filterProductViewModel);
     }
+
+    public async Task<CreateProductResult> CreateProduct(CreateProductViewModel createProductViewModel, IFormFile image)
+    {
+
+        var product = new Product
+        {
+            Description = createProductViewModel.Description,
+            ShortDescription = createProductViewModel.ShortDescription,
+            IsActive = createProductViewModel.IsActive,
+            Name = createProductViewModel.Name,
+            Price = createProductViewModel.Price
+        };
+
+        if (image != null && image.IsImage())
+        {
+            var imageName = Guid.NewGuid().ToString("N") + Path.GetExtension(image.FileName);
+
+            image.AddImageToServer(imageName, PathExtensions.CategoryOriginServer, 257, 273,
+                PathExtensions.ProductThumbServer);
+
+            product.ImageName = imageName;
+        }
+        else
+        {
+            return CreateProductResult.NotHaveImage;
+        }
+
+        await _productRepository.AddProduct(product);
+        await _productRepository.SaveChangeAsync();
+
+        await _productRepository.AddProductSelectCategory(createProductViewModel.ProductSelectedCategory, product.Id);
+
+
+        return CreateProductResult.Success;
+    }
 }

@@ -9,7 +9,6 @@ public interface IProductService
     Task<EditProductCategoryResult> EditProductCategory(EditProductCategoryViewModel categoryViewModel, IFormFile file);
     Task<EditProductCategoryViewModel>GetEditProductCategory(Guid  productCategoryId);
     Task<ProductCategoryFilterViewModel> ProductCategoryFilter(ProductCategoryFilterViewModel categoryFilterViewModel);
-
     Task<FilterProductViewModel> FilterProduct(FilterProductViewModel filterProductViewModel);
-
+    Task<CreateProductResult> CreateProduct(CreateProductViewModel categoryViewModel, IFormFile image);
 }

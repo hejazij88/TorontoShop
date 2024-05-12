@@ -8,7 +8,7 @@ using TorontoShop.Infa.Data.Context;
 
 namespace TorontoShop.Infa.Data.Repository;
 
-public class ProductRepository:IProductRepository
+public class ProductRepository : IProductRepository
 {
     private readonly ShopDbContext _context;
 
@@ -24,7 +24,7 @@ public class ProductRepository:IProductRepository
 
     public async Task<bool> CheckUrlNameCategory(string url)
     {
-        return await _context.ProductCategory.AsQueryable().AnyAsync(category =>category.UrlName==url);
+        return await _context.ProductCategory.AsQueryable().AnyAsync(category => category.UrlName == url);
     }
 
     public async Task AddProductCategory(ProductCategory productCategory)
@@ -34,7 +34,7 @@ public class ProductRepository:IProductRepository
 
     public async Task<bool> CheckUrlNameCategories(string urlName, Guid CategoryId)
     {
-        return await _context.ProductCategory.AsQueryable().AnyAsync(category => category.UrlName == urlName&&category.Id!=CategoryId);
+        return await _context.ProductCategory.AsQueryable().AnyAsync(category => category.UrlName == urlName && category.Id != CategoryId);
     }
 
     public async Task<ProductCategory> GetProductCategoryById(Guid id)
@@ -75,7 +75,7 @@ public class ProductRepository:IProductRepository
 
         if (!string.IsNullOrEmpty(filterProductViewModel.ProductName))
         {
-            query = query.Where(product => EF.Functions.Like(product.Name,$"%{filterProductViewModel.ProductName}%"));
+            query = query.Where(product => EF.Functions.Like(product.Name, $"%{filterProductViewModel.ProductName}%"));
         }
 
         if (!string.IsNullOrEmpty(filterProductViewModel.ProductCategoryName))
@@ -118,5 +118,41 @@ public class ProductRepository:IProductRepository
         var allData = await query.Paging(pager).ToListAsync();
 
         return filterProductViewModel.SetPaging(pager).SetProduct(allData);
+    }
+
+    public async Task AddProduct(Product product)
+    {
+        await _context.AddAsync(product);
+    }
+
+    public async Task RemoveProductSelectCategory(Guid productId)
+    {
+        var allProductSelctedCategory = await _context.ProductSelectedCategories.AsQueryable()
+            .Where(category => category.ProductId == productId).ToListAsync();
+
+
+        if (allProductSelctedCategory.Any())
+        {
+            _context.ProductSelectedCategories.RemoveRange(allProductSelctedCategory);
+        }
+    }
+
+    public async Task AddProductSelectCategory(List<Guid> productSelectCategory, Guid productId)
+    {
+        if (productSelectCategory != null && productSelectCategory.Any())
+        {
+            var newProductSelectedCategory = new List<ProductSelectedCategory>();
+
+            foreach (var categoryId in productSelectCategory)
+            {
+                newProductSelectedCategory.Add(new ProductSelectedCategory
+                {
+                    ProductId = productId,
+                    CategoryId = categoryId
+                });
+            }
+            await _context.ProductSelectedCategories.AddRangeAsync(newProductSelectedCategory);
+            await _context.SaveChangesAsync();
+        }
     }
 }
