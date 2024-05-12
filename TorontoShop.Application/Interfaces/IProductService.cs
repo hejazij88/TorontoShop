@@ -10,4 +10,6 @@ public interface IProductService
     Task<EditProductCategoryViewModel>GetEditProductCategory(Guid  productCategoryId);
     Task<ProductCategoryFilterViewModel> ProductCategoryFilter(ProductCategoryFilterViewModel categoryFilterViewModel);
 
+    Task<FilterProductViewModel> FilterProduct(FilterProductViewModel filterProductViewModel);
+
 }

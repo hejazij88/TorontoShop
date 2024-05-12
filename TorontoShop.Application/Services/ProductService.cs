@@ -89,4 +89,9 @@ public class ProductService : IProductService
     {
         return await _productRepository.FilterProductCategories(categoryFilterViewModel);
     }
+
+    public async Task<FilterProductViewModel> FilterProduct(FilterProductViewModel filterProductViewModel)
+    {
+        return await _productRepository.FilterProduct(filterProductViewModel);
+    }
 }
