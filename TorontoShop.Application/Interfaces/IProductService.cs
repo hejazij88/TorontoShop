@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using TorontoShop.Domain.Model.ProductEntity;
 using TorontoShop.Domain.ViewModel.Admin.Product;
 
 namespace TorontoShop.Application.Interfaces;
@@ -11,4 +12,6 @@ public interface IProductService
     Task<ProductCategoryFilterViewModel> ProductCategoryFilter(ProductCategoryFilterViewModel categoryFilterViewModel);
     Task<FilterProductViewModel> FilterProduct(FilterProductViewModel filterProductViewModel);
     Task<CreateProductResult> CreateProduct(CreateProductViewModel categoryViewModel, IFormFile image);
+
+    Task<List<ProductCategory>> GetAllCategory();
 }

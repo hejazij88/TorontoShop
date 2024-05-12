@@ -129,4 +129,9 @@ public class ProductService : IProductService
 
         return CreateProductResult.Success;
     }
+
+    public async Task<List<ProductCategory>> GetAllCategory()
+    {
+        return await _productRepository.GetAllCategory();
+    }
 }

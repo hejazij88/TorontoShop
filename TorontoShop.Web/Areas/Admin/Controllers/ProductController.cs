@@ -79,8 +79,11 @@ namespace TorontoShop.Web.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> FilterProduct(FilterProductViewModel filterProductViewModel)
         {
+            filterProductViewModel.State = ProductState.All;
             return View(await _productService.FilterProduct(filterProductViewModel));
         }
+
+
 
     }
 }

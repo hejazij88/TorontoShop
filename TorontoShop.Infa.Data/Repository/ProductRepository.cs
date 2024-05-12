@@ -155,4 +155,10 @@ public class ProductRepository : IProductRepository
             await _context.SaveChangesAsync();
         }
     }
+
+    public async Task<List<ProductCategory>> GetAllCategory()
+    {
+        return await _context.ProductCategory.AsQueryable()
+            .Where(category => !category.IsDeleted).ToListAsync();
+    }
 }
