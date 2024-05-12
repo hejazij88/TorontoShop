@@ -10,6 +10,7 @@ namespace TorontoShop.Domain.ViewModel.Admin.Product
         public string ProductCategoryName { get; set; }
         public List<Model.ProductEntity.Product> Products { get; set; }
         public ProductState State { get; set; }
+        public ProductOrder ProductOrder { get; set; }
 
 
         public FilterProductViewModel SetProduct(List<Model.ProductEntity.Product> products)

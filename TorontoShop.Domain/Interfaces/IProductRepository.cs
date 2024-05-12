@@ -16,4 +16,6 @@ public interface IProductRepository
     void UpdateProductCtaegory(ProductCategory category);
     Task<ProductCategoryFilterViewModel> FilterProductCategories(ProductCategoryFilterViewModel filter);
 
+    Task<FilterProductViewModel> FilterProduct(FilterProductViewModel filterProductViewModel);
+
 }

@@ -65,4 +65,58 @@ public class ProductRepository:IProductRepository
 
         return filter.SetPaging(pager).SetCategory(allData);
     }
+
+    public async Task<FilterProductViewModel> FilterProduct(FilterProductViewModel filterProductViewModel)
+    {
+        var query = _context.Products.Include(product => product.ProductSelectedCategories)
+            .ThenInclude(category => category.ProductCategory).AsQueryable();
+
+        #region Filter
+
+        if (!string.IsNullOrEmpty(filterProductViewModel.ProductName))
+        {
+            query = query.Where(product => EF.Functions.Like(product.Name,$"%{filterProductViewModel.ProductName}%"));
+        }
+
+        if (!string.IsNullOrEmpty(filterProductViewModel.ProductCategoryName))
+        {
+            query = query.Where(product => product.ProductSelectedCategories.Any(category =>
+                category.ProductCategory.UrlName == filterProductViewModel.ProductCategoryName));
+        }
+
+
+        switch (filterProductViewModel.State)
+        {
+            case ProductState.All:
+                break;
+            case ProductState.IsActive:
+                query = query.Where(product => product.IsActive);
+                break;
+            case ProductState.Delete:
+                query = query.Where(product => product.IsDeleted);
+                break;
+        }
+
+        switch (filterProductViewModel.ProductOrder)
+        {
+            case ProductOrder.All:
+                break;
+            case ProductOrder.Chip:
+                query = query.Where(product => product.IsActive).OrderBy(product => product.Price);
+                break;
+            case ProductOrder.Expensive:
+                query = query.Where(product => product.IsActive).OrderByDescending(product => product.Price);
+                break;
+            case ProductOrder.News:
+                query = query.Where(product => product.IsActive).OrderByDescending(product => product.CreatedDate);
+                break;
+        }
+
+        #endregion
+
+        var pager = Pager.Build(filterProductViewModel.PageId, await query.CountAsync(), filterProductViewModel.TakeEntity, filterProductViewModel.CountForShowAfterAndBefor);
+        var allData = await query.Paging(pager).ToListAsync();
+
+        return filterProductViewModel.SetPaging(pager).SetProduct(allData);
+    }
 }
