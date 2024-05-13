@@ -161,4 +161,23 @@ public class ProductRepository : IProductRepository
         return await _context.ProductCategory.AsQueryable()
             .Where(category => !category.IsDeleted).ToListAsync();
     }
+
+    public async Task<Product> GetProductById(Guid productId)
+    {
+        return await _context.Product.AsQueryable()
+            .SingleOrDefaultAsync(product => product.Id == productId);
+    }
+
+    public async void UpdateProduct(Product product)
+    {
+        _context.Product.Update(product);
+    }
+
+    public async Task<List<Guid>> GetAllProductCategoriesId(Guid productId)
+    {
+        return await _context.ProductSelectedCategory.AsQueryable()
+            .Where(category => category.ProductId == productId)
+            .Select(category => category.CategoryId)
+            .ToListAsync();
+    }
 }

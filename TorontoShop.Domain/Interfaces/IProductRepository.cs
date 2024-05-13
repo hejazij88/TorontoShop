@@ -17,5 +17,11 @@ public interface IProductRepository
     Task AddProduct(Product product);
     Task RemoveProductSelectCategory(Guid productId);
     Task AddProductSelectCategory(List<Guid> productSelectCategory,Guid productId);
-    Task<List<ProductCategory>> GetAllCategory();
+    Task<List<ProductCategory>> GetAllCategory(); 
+    Task<Product> GetProductById(Guid productId);
+    void UpdateProduct(Product product);
+    Task<List<Guid>> GetAllProductCategoriesId(Guid productId);
+
+
+
 }
