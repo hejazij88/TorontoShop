@@ -2,6 +2,7 @@
 using TorontoShop.Application.Interfaces;
 using TorontoShop.Domain.Model.ProductEntity;
 using TorontoShop.Domain.ViewModel.Admin.Product;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TorontoShop.Web.Areas.Admin.Controllers
 {
@@ -118,7 +119,13 @@ namespace TorontoShop.Web.Areas.Admin.Controllers
 
         public async Task<IActionResult> EditProduct(Guid productId)
         {
-            return View(await _productService.GetEditProduct(productId));
+           var data= await _productService.GetEditProduct(productId);
+            if (data == null)
+            {
+                return NotFound();
+            }
+            TempData["Categories"] = await _productService.GetAllCategory();
+            return View(data);
         }
 
         [HttpPost,ValidateAntiForgeryToken]
@@ -136,9 +143,10 @@ namespace TorontoShop.Web.Areas.Admin.Controllers
                         TempData[SuccessMessage] = "گروه کالایی وجود ندارد";
                         break;
                     case EditProductResult.Success:
-                        return RedirectToAction("FilterProductCategories");
+                        return RedirectToAction("FilterProduct");
                 }
             }
+            TempData["Categories"] = await _productService.GetAllCategory();
             return View(editProductViewModel);
         }
 
