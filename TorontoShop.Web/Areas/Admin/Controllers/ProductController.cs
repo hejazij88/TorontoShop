@@ -58,7 +58,7 @@ namespace TorontoShop.Web.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditProductCategory(EditProductCategoryViewModel productCategoryViewModel,IFormFile image)
+        public async Task<IActionResult> EditProductCategory(EditProductCategoryViewModel productCategoryViewModel,IFormFile? image)
         {
             if (ModelState.IsValid)
             {
@@ -116,7 +116,6 @@ namespace TorontoShop.Web.Areas.Admin.Controllers
 
 
         [HttpGet]
-
         public async Task<IActionResult> EditProduct(Guid productId)
         {
            var data= await _productService.GetEditProduct(productId);
