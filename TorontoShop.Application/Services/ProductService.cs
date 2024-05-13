@@ -141,6 +141,7 @@ public class ProductService : IProductService
 
         return  new EditProductViewModel
         {
+            Id = productId,
             Description = result.Description,
             IsActive = result.IsActive,
             Name = result.Name,

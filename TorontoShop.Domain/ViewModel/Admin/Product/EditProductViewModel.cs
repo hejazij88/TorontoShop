@@ -8,7 +8,7 @@ public class EditProductViewModel
     public Guid Id { get; set; }
 
     [Required]
-    [MaxLength(500), MinLength(5)]
+    [MaxLength(500), MinLength(4)]
     [Display(Name = "نام محصول")]
     public string Name { get; set; }
 
@@ -29,7 +29,7 @@ public class EditProductViewModel
     [Display(Name = "فعال / غیرفعال")]
     public bool IsActive { get; set; }
 
-    public string ImageName { get; set; }
+    public string? ImageName { get; set; }
 
     public List<Guid> ProductSelectedCategory { get; set; }
 }

@@ -129,11 +129,11 @@ namespace TorontoShop.Web.Areas.Admin.Controllers
         }
 
         [HttpPost,ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditProduct(EditProductViewModel editProductViewModel, IFormFile image)
+        public async Task<IActionResult> EditProduct(EditProductViewModel editProductViewModel, IFormFile? image)
         {
             if (ModelState.IsValid)
             {
-                var result = await _productService.EditProduct(editProductViewModel, image);
+                    var result = await _productService.EditProduct(editProductViewModel, image);
                 switch (result)
                 {
                     case EditProductResult.NotFound:
