@@ -85,5 +85,32 @@ namespace TorontoShop.Web.Areas.Admin.Controllers
 
 
 
+        [HttpGet]
+        public async Task<IActionResult> CreateProduct()
+        {
+            TempData["Categories"] = await _productService.GetAllCategory();
+            return View();
+        }
+
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateProduct(CreateProductViewModel createProductViewModel, IFormFile image)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _productService.CreateProduct(createProductViewModel, image);
+
+                switch (result)
+                {
+                    case CreateProductResult.NotHaveImage:
+                        TempData[WarningMessage] = "لطفا برای محصول یک تصویر انتخاب کنید";
+                        break;
+                    case CreateProductResult.Success:
+                        TempData[SuccessMessage] = "عملیات ثبت محصول با موفقیت انجام شد";
+                        return RedirectToAction("FilterProduct");
+                }
+            }
+            return View(createProductViewModel);
+        }
     }
 }

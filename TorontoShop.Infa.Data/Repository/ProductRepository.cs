@@ -68,7 +68,7 @@ public class ProductRepository : IProductRepository
 
     public async Task<FilterProductViewModel> FilterProduct(FilterProductViewModel filterProductViewModel)
     {
-        var query = _context.Products.Include(product => product.ProductSelectedCategories)
+        var query = _context.Product.Include(product => product.ProductSelectedCategory)
             .ThenInclude(category => category.ProductCategory).AsQueryable();
 
         #region Filter
@@ -80,7 +80,7 @@ public class ProductRepository : IProductRepository
 
         if (!string.IsNullOrEmpty(filterProductViewModel.ProductCategoryName))
         {
-            query = query.Where(product => product.ProductSelectedCategories.Any(category =>
+            query = query.Where(product => product.ProductSelectedCategory.Any(category =>
                 category.ProductCategory.UrlName == filterProductViewModel.ProductCategoryName));
         }
 
@@ -127,13 +127,13 @@ public class ProductRepository : IProductRepository
 
     public async Task RemoveProductSelectCategory(Guid productId)
     {
-        var allProductSelctedCategory = await _context.ProductSelectedCategories.AsQueryable()
+        var allProductSelctedCategory = await _context.ProductSelectedCategory.AsQueryable()
             .Where(category => category.ProductId == productId).ToListAsync();
 
 
         if (allProductSelctedCategory.Any())
         {
-            _context.ProductSelectedCategories.RemoveRange(allProductSelctedCategory);
+            _context.ProductSelectedCategory.RemoveRange(allProductSelctedCategory);
         }
     }
 
@@ -151,7 +151,7 @@ public class ProductRepository : IProductRepository
                     CategoryId = categoryId
                 });
             }
-            await _context.ProductSelectedCategories.AddRangeAsync(newProductSelectedCategory);
+            await _context.ProductSelectedCategory.AddRangeAsync(newProductSelectedCategory);
             await _context.SaveChangesAsync();
         }
     }

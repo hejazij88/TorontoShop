@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using TorontoShop.Domain.Model.ProductEntity;
 using TorontoShop.Domain.ViewModel.Paging;
 
 namespace TorontoShop.Domain.ViewModel.Admin.Product

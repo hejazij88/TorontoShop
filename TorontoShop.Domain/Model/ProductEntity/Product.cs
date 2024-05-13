@@ -10,11 +10,11 @@ using TorontoShop.Domain.Model.BaseEntities;
 namespace TorontoShop.Domain.Model.ProductEntity
 {
     [Table("Product")]
-    public class Product:BaseEntity
+    public class Product : BaseEntity
     {
 
         [Required]
-        [MaxLength(500),MinLength(5)]
+        [MaxLength(500), MinLength(5)]
         [Display(Name = "نام محصول")]
         public string Name { get; set; }
 
@@ -41,8 +41,8 @@ namespace TorontoShop.Domain.Model.ProductEntity
         public bool IsActive { get; set; }
 
 
-        public ICollection<ProductFuture> Futures { get; set; }
-        public ICollection<ProductSelectedCategory> ProductSelectedCategories { get; set; }
-        public ICollection<ProductGallery> Galleries { get; set; }
+        [InverseProperty(nameof(ProductFuture.Product))] public ICollection<ProductFuture> Futures { get; set; }
+        [InverseProperty(nameof(ProductEntity.ProductSelectedCategory.Product))] public ICollection<ProductSelectedCategory> ProductSelectedCategory { get; set; }
+        [InverseProperty(nameof(ProductGallery.Product))] public ICollection<ProductGallery> Galleries { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Text;
@@ -22,7 +23,7 @@ namespace TorontoShop.Domain.Model.ProductEntity
         [MaxLength(200, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
         public string Value { get; set; }
 
-        public Product Product { get; set; }
+       [ForeignKey(nameof(ProductId))] public Product Product { get; set; }
 
 
 

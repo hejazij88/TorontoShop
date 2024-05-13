@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ using TorontoShop.Domain.Model.BaseEntities;
 
 namespace TorontoShop.Domain.Model.ProductEntity
 {
-    public class ProductCategory:BaseEntity
+    public class ProductCategory : BaseEntity
     {
         public Guid? ParentId { get; set; }
 
@@ -25,8 +26,8 @@ namespace TorontoShop.Domain.Model.ProductEntity
         [MaxLength(200, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
         public string ImageName { get; set; }
 
-        public virtual ProductCategory Parent { get; set; }
-        public ICollection<ProductSelectedCategory>ProductSelectedCategories { get; set; }
+        [ForeignKey(nameof(ParentId))] public virtual ProductCategory? Parent { get; set; }
+        [InverseProperty(nameof(ProductSelectedCategory.ProductCategory))] public ICollection<ProductSelectedCategory> ProductSelectedCategories { get; set; }
 
     }
 }
