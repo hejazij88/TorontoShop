@@ -29,12 +29,14 @@ public class EditProductViewModel
     [Display(Name = "فعال / غیرفعال")]
     public bool IsActive { get; set; }
 
+    public string ImageName { get; set; }
+
     public List<Guid> ProductSelectedCategory { get; set; }
 }
 
 public enum EditProductResult
 {
     Success,
-    NotHaveImage,
+    NotFound,
     CategoryIsNull
 }

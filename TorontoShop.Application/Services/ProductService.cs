@@ -134,4 +134,56 @@ public class ProductService : IProductService
     {
         return await _productRepository.GetAllCategory();
     }
+
+    public async Task<EditProductViewModel> GetEditProduct(Guid productId)
+    {
+        var result = await _productRepository.GetProductById(productId);
+
+        return  new EditProductViewModel
+        {
+            Description = result.Description,
+            IsActive = result.IsActive,
+            Name = result.Name,
+            Price = result.Price,
+            ShortDescription = result.ShortDescription,
+            ImageName = result.ImageName,
+            ProductSelectedCategory = await _productRepository.GetAllProductCategoriesId(productId)
+
+        };
+    }
+
+    public async Task<EditProductResult> EditProduct(EditProductViewModel editProduct, IFormFile image)
+    {
+        var product = await _productRepository.GetProductById(editProduct.Id);
+        if (product == null) return EditProductResult.NotFound;
+        if (editProduct.ProductSelectedCategory == null) return EditProductResult.CategoryIsNull;
+
+        #region edit product
+        product.ShortDescription = editProduct.ShortDescription;
+        product.Description = editProduct.Description;
+        product.IsActive = editProduct.IsActive;
+        product.Price = editProduct.Price;
+        product.Name = editProduct.Name;
+
+
+        if (image != null && image.IsImage())
+        {
+            var imageName = Guid.NewGuid().ToString("N") + Path.GetExtension(image.FileName);
+
+            image.AddImageToServer(imageName, PathExtensions.ProductOriginServer, 257, 273,
+                PathExtensions.ProductThumbServer);
+
+            product.ImageName = imageName;
+        }
+        #endregion
+        _productRepository.UpdateProduct(product);
+
+        await _productRepository.RemoveProductSelectCategory(editProduct.Id);
+        await _productRepository.AddProductSelectCategory(editProduct.ProductSelectedCategory, editProduct.Id);
+
+
+        await _productRepository.SaveChangeAsync();
+
+        return EditProductResult.Success;
+    }
 }

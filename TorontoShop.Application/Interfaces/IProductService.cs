@@ -12,6 +12,8 @@ public interface IProductService
     Task<ProductCategoryFilterViewModel> ProductCategoryFilter(ProductCategoryFilterViewModel categoryFilterViewModel);
     Task<FilterProductViewModel> FilterProduct(FilterProductViewModel filterProductViewModel);
     Task<CreateProductResult> CreateProduct(CreateProductViewModel categoryViewModel, IFormFile image);
-
     Task<List<ProductCategory>> GetAllCategory();
+    Task<EditProductViewModel> GetEditProduct(Guid productId);
+    Task<EditProductResult> EditProduct(EditProductViewModel editProduct,IFormFile image);
+
 }
