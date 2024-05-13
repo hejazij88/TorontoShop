@@ -112,5 +112,35 @@ namespace TorontoShop.Web.Areas.Admin.Controllers
             }
             return View(createProductViewModel);
         }
+
+
+        [HttpGet]
+
+        public async Task<IActionResult> EditProduct(Guid productId)
+        {
+            return View(await _productService.GetEditProduct(productId));
+        }
+
+        [HttpPost,ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditProduct(EditProductViewModel editProductViewModel, IFormFile image)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _productService.EditProduct(editProductViewModel, image);
+                switch (result)
+                {
+                    case EditProductResult.NotFound:
+                        TempData[ErrorMessage] = "محصولی یافت نشد";
+                        break;
+                    case EditProductResult.CategoryIsNull:
+                        TempData[SuccessMessage] = "گروه کالایی وجود ندارد";
+                        break;
+                    case EditProductResult.Success:
+                        return RedirectToAction("FilterProductCategories");
+                }
+            }
+            return View(editProductViewModel);
+        }
+
     }
 }
