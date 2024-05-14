@@ -149,5 +149,18 @@ namespace TorontoShop.Web.Areas.Admin.Controllers
             return View(editProductViewModel);
         }
 
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteProduct(Guid productId)
+        {
+            return RedirectToAction("FilterProduct");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> RecoveryProduct(Guid productId)
+        {
+            return RedirectToAction("FilterProduct");
+        }
+
     }
 }
