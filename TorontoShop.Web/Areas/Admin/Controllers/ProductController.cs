@@ -80,7 +80,6 @@ namespace TorontoShop.Web.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> FilterProduct(FilterProductViewModel filterProductViewModel)
         {
-            filterProductViewModel.State = ProductState.All;
             return View(await _productService.FilterProduct(filterProductViewModel));
         }
 
@@ -153,12 +152,31 @@ namespace TorontoShop.Web.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> DeleteProduct(Guid productId)
         {
+            var result = await _productService.DeleteProduct(productId);
+            if (result)
+            {
+                TempData[SuccessMessage] = "محصول شما با موفقیت حذف شد";
+                return RedirectToAction("FilterProduct");
+
+            }
+
+            TempData[WarningMessage] = "در حذف محصول خطایی رخ داده است";
             return RedirectToAction("FilterProduct");
         }
 
         [HttpGet]
         public async Task<IActionResult> RecoveryProduct(Guid productId)
         {
+            var result = await _productService.RecoveryProduct(productId);
+
+            if (result)
+            {
+                TempData[SuccessMessage] = "محصول شما با موفقیت بازگردانی شد";
+                return RedirectToAction("FilterProduct");
+
+            }
+
+            TempData[WarningMessage] = "در بازگردانی محصول خطایی رخ داده است";
             return RedirectToAction("FilterProduct");
         }
 
