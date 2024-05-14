@@ -88,6 +88,7 @@ public class ProductRepository : IProductRepository
         switch (filterProductViewModel.State)
         {
             case ProductState.All:
+                query = query.Where(product => !product.IsDeleted);
                 break;
             case ProductState.IsActive:
                 query = query.Where(product => product.IsActive);
