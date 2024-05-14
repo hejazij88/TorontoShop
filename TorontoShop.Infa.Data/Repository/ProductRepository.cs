@@ -180,4 +180,32 @@ public class ProductRepository : IProductRepository
             .Select(category => category.CategoryId)
             .ToListAsync();
     }
+
+    public async Task<bool> DeleteProduct(Guid productId)
+    {
+        var product = await _context.Product.AsQueryable().Where(p => p.Id == productId).FirstOrDefaultAsync();
+        if (product != null)
+        {
+            product.IsDeleted=true;
+             _context.Product.Update(product);
+             await _context.SaveChangesAsync();
+            return true;
+        }
+
+        return false;
+    }
+
+    public async Task<bool> RecoveryProduct(Guid productId)
+    {
+        var product = await _context.Product.AsQueryable().Where(p => p.Id == productId).FirstOrDefaultAsync();
+        if (product != null)
+        {
+            product.IsDeleted = false;
+            _context.Product.Update(product);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        return false;
+    }
 }

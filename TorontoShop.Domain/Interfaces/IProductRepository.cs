@@ -21,6 +21,9 @@ public interface IProductRepository
     Task<Product> GetProductById(Guid productId);
     void UpdateProduct(Product product);
     Task<List<Guid>> GetAllProductCategoriesId(Guid productId);
+    Task<bool> DeleteProduct(Guid productId);
+    Task<bool> RecoveryProduct(Guid productId);
+
 
 
 
