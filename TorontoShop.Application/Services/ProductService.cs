@@ -187,4 +187,14 @@ public class ProductService : IProductService
 
         return EditProductResult.Success;
     }
+
+    public async Task<bool> DeleteProduct(Guid productId)
+    {
+        return await _productRepository.DeleteProduct(productId);
+    }
+
+    public async Task<bool> RecoveryProduct(Guid productId)
+    {
+        return await _productRepository.RecoveryProduct(productId);
+    }
 }

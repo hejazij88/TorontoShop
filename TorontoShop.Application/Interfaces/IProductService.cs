@@ -15,5 +15,8 @@ public interface IProductService
     Task<List<ProductCategory>> GetAllCategory();
     Task<EditProductViewModel> GetEditProduct(Guid productId);
     Task<EditProductResult> EditProduct(EditProductViewModel editProduct,IFormFile image);
+    Task<bool> DeleteProduct(Guid productId);
+    Task<bool> RecoveryProduct(Guid productId);
+
 
 }
