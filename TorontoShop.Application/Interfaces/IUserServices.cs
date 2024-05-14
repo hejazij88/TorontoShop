@@ -34,13 +34,6 @@ namespace TorontoShop.Application.Interfaces
         Task<FilterRolesViewModel> FilterRoles(FilterRolesViewModel filter);
         Task<List<Permission>> GetAllActivePermission();
         Task<List<Role>> GetAllActiveRoles();
-
-
-
-
-
-
-
-
+        bool CheckPermission(Guid permissionId, string phoneNumber);
     }
 }

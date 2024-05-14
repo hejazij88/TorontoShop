@@ -83,8 +83,6 @@ namespace TorontoShop.Web.Areas.Admin.Controllers
             return View(await _productService.FilterProduct(filterProductViewModel));
         }
 
-
-
         [HttpGet]
         public async Task<IActionResult> CreateProduct()
         {

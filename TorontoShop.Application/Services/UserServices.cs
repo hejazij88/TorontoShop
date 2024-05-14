@@ -254,5 +254,10 @@ namespace TorontoShop.Application.Services
         {
             return await _userRepository.GetAllActiveRoles();
         }
+
+        public bool CheckPermission(Guid permissionId, string phoneNumber)
+        {
+            return _userRepository.CheckPermission(permissionId, phoneNumber);
+        }
     }
 }

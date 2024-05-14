@@ -207,5 +207,24 @@ namespace TorontoShop.Infa.Data.Repository
         {
             throw new NotImplementedException();
         }
+
+        public bool CheckPermission(Guid permissionId, string phoneNumber)
+        {
+            Guid userId = _context.Users.AsQueryable().Single(c => c.PhoneNumber == phoneNumber).Id;
+
+            var userRole = _context.UserRoles.AsQueryable()
+                .Where(c => c.UserId == userId).Select(r => r.RoleId).ToList();
+
+
+            if (!userRole.Any())
+                return false;
+
+
+            var permissions = _context.RolePermissions.AsQueryable()
+                .Where(c => c.PermissionId == permissionId).Select(c => c.RoleId).ToList();
+
+
+            return permissions.Any(c => userRole.Contains(c));
+        }
     }
 }

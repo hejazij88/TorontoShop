@@ -17,7 +17,7 @@ namespace TorontoShop.Domain.Interfaces
 
         public Task SaveChange();
 
-        public Task <User?> GetUserByPhoneNumber(string phoneNumber);
+        public Task<User?> GetUserByPhoneNumber(string phoneNumber);
 
         public void UpdateUser(User user);
 
@@ -40,6 +40,7 @@ namespace TorontoShop.Domain.Interfaces
         Task RemoveAllUserSelectedRole(Guid userId);
         Task AddUserToRole(List<Guid> selectedRole, Guid userId);
         Task<List<Role>> GetAllActiveUserRole();
+        bool CheckPermission(Guid permissionId, string phoneNumber);
 
 
 

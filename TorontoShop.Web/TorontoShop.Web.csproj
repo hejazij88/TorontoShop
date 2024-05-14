@@ -73,6 +73,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Permission\" />
     <Folder Include="wwwroot\img\category\" />
   </ItemGroup>
 
