@@ -19,5 +19,8 @@ public interface IProductService
     Task<bool> RecoveryProduct(Guid productId);
     Task<bool> AddProductGallery(Guid productId, List<IFormFile> images);
 
+    Task<List<ProductGallery>> GetAllProductGalleries(Guid productId);
+    Task DeleteImage(Guid galleryId);
+
 
 }

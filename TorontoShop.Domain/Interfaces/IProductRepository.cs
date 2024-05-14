@@ -25,6 +25,8 @@ public interface IProductRepository
     Task<bool> RecoveryProduct(Guid productId);
     Task AddProductGalleries(List<ProductGallery> productGalleries);
     Task<bool> CheckProduct(Guid productId);
-
+    Task<List<ProductGallery>> GetAllProductGalleries(Guid productId);
+    Task<ProductGallery> GetProductGalleriesById(Guid id);
+    Task DeleteProductGallery(Guid id);
 
 }

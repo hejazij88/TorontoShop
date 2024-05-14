@@ -10,7 +10,7 @@ namespace TorontoShop.Web.Permission;
 public class PermissionCheckerAttribute : AuthorizeAttribute, IAuthorizationFilter
 {
     private IUserServices _userServices;
-    private Guid _permissionId=Guid.Empty;
+    private Guid _permissionId = Guid.Empty;
     public PermissionCheckerAttribute(Guid permissionId)
     {
         _permissionId = permissionId;

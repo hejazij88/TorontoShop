@@ -197,5 +197,19 @@ namespace TorontoShop.Web.Areas.Admin.Controllers
             return JsonResponseStatus.Error();
         }
 
+
+        public async Task<IActionResult> ProductGalleries(Guid productId)
+        {
+            var data = await _productService.GetAllProductGalleries(productId);
+
+            return View(data);
+        }
+
+        public async Task<IActionResult> DeleteImage(Guid galleryId)
+        {
+            await _productService.DeleteImage(galleryId);
+            return RedirectToAction("FilterProduct");
+        }
+
     }
 }

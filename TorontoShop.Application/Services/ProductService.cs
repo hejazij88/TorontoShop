@@ -229,4 +229,19 @@ public class ProductService : IProductService
         }
         return true;
     }
+
+    public async Task<List<ProductGallery>> GetAllProductGalleries(Guid productId)
+    {
+        return await _productRepository.GetAllProductGalleries(productId);
+    }
+
+    public async Task DeleteImage(Guid galleryId)
+    {
+        var productGallery = await _productRepository.GetProductGalleriesById(galleryId);
+        if (productGallery != null)
+        {
+            UploadImageExtension.DeleteImage(productGallery.ImageName, PathExtensions.ProductOriginServer, PathExtensions.ProductThumbServer);
+            await _productRepository.DeleteProductGallery(galleryId);
+        }
+    }
 }

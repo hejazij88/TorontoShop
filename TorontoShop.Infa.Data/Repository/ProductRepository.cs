@@ -222,4 +222,32 @@ public class ProductRepository : IProductRepository
         return await _context.Product.AsQueryable()
             .AnyAsync(c => c.Id == productId);
     }
+
+    public async Task<List<ProductGallery>> GetAllProductGalleries(Guid productId)
+    {
+        return await _context.Gallery.AsQueryable()
+            .Where(c => c.ProductId == productId && !c.IsDeleted)
+            .ToListAsync();
+    }
+
+    public async Task<ProductGallery> GetProductGalleriesById(Guid id)
+    {
+        return await _context.Gallery.AsQueryable()
+            .FirstOrDefaultAsync(c => c.Id == id);
+    }
+
+    public async Task DeleteProductGallery(Guid id)
+    {
+        var currentGallery = await _context.Gallery.AsQueryable()
+            //.Where(c => c.Id == id)
+            .FirstOrDefaultAsync(c => c.Id == id);
+
+        if (currentGallery != null)
+        {
+            currentGallery.IsDeleted = true;
+
+            _context.Gallery.Update(currentGallery);
+            await _context.SaveChangesAsync();
+        }
+    }
 }
