@@ -17,6 +17,7 @@ public interface IProductService
     Task<EditProductResult> EditProduct(EditProductViewModel editProduct,IFormFile image);
     Task<bool> DeleteProduct(Guid productId);
     Task<bool> RecoveryProduct(Guid productId);
+    Task<bool> AddProductGallery(Guid productId, List<IFormFile> images);
 
 
 }

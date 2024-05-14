@@ -197,4 +197,36 @@ public class ProductService : IProductService
     {
         return await _productRepository.RecoveryProduct(productId);
     }
+
+    public async Task<bool> AddProductGallery(Guid productId, List<IFormFile> images)
+    {
+        if (!await _productRepository.CheckProduct(productId))
+        {
+            return false;
+        }
+
+        if (images != null && images.Any())
+        {
+            var productGallery = new List<ProductGallery>();
+            foreach (var image in images)
+            {
+                if (image.IsImage())
+                {
+                    var imageName = Guid.NewGuid().ToString("N") + Path.GetExtension(image.FileName);
+                    image.AddImageToServer(imageName, PathExtensions.ProductOriginServer, 255, 273, PathExtensions.ProductThumbServer);
+
+
+                    productGallery.Add(new ProductGallery
+                    {
+                        ImageName = imageName,
+                        ProductId = productId
+                    });
+                }
+            }
+
+            await _productRepository.AddProductGalleries(productGallery);
+
+        }
+        return true;
+    }
 }
