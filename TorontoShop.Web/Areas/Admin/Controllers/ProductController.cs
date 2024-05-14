@@ -2,6 +2,7 @@
 using TorontoShop.Application.Interfaces;
 using TorontoShop.Domain.Model.ProductEntity;
 using TorontoShop.Domain.ViewModel.Admin.Product;
+using TorontoShop.Web.Extensions;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TorontoShop.Web.Areas.Admin.Controllers
@@ -176,6 +177,24 @@ namespace TorontoShop.Web.Areas.Admin.Controllers
 
             TempData[WarningMessage] = "در بازگردانی محصول خطایی رخ داده است";
             return RedirectToAction("FilterProduct");
+        }
+
+
+        public IActionResult GalleryProduct(Guid productId)
+        {
+            ViewBag.productId = productId;
+            return View();
+        }
+
+
+        public async Task<IActionResult> AddImageToProduct(List<IFormFile> images, Guid productId)
+        {
+            var result = await _productService.AddProductGallery(productId, images);
+            if (result)
+            {
+                return JsonResponseStatus.Success();
+            }
+            return JsonResponseStatus.Error();
         }
 
     }

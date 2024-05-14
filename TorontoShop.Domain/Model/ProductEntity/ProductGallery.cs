@@ -9,6 +9,7 @@ using TorontoShop.Domain.Model.BaseEntities;
 
 namespace TorontoShop.Domain.Model.ProductEntity
 {
+    [Table("ProductGallery")]
     public class ProductGallery:BaseEntity
     {
 
