@@ -23,8 +23,8 @@ public interface IProductRepository
     Task<List<Guid>> GetAllProductCategoriesId(Guid productId);
     Task<bool> DeleteProduct(Guid productId);
     Task<bool> RecoveryProduct(Guid productId);
-
-
+    Task AddProductGalleries(List<ProductGallery> productGalleries);
+    Task<bool> CheckProduct(Guid productId);
 
 
 }

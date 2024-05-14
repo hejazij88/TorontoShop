@@ -210,4 +210,16 @@ public class ProductRepository : IProductRepository
         return false;
     }
 
+    public async Task AddProductGalleries(List<ProductGallery> productGalleries)
+    {
+        await _context.Gallery.AddRangeAsync(productGalleries);
+
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task<bool> CheckProduct(Guid productId)
+    {
+        return await _context.Product.AsQueryable()
+            .AnyAsync(c => c.Id == productId);
+    }
 }
