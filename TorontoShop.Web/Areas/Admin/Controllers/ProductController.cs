@@ -211,5 +211,41 @@ namespace TorontoShop.Web.Areas.Admin.Controllers
             return RedirectToAction("FilterProduct");
         }
 
+
+        [HttpGet]
+        public IActionResult CreateProductFuture(Guid productId)
+        {
+            var future = new CreateProductFutureViewModel
+            {
+                ProductId = productId
+            };
+            return View(future);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateProductFuture(CreateProductFutureViewModel futureViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var result = await _productService.CreateProductFuture(futureViewModel);
+                switch (result)
+                {
+                    case CreateProductFutureResult.Error:
+                        TempData[ErrorMessage] = "مشکلی در ثبت ویژگی وجود دارد";
+                        break;
+                    case CreateProductFutureResult.Success:
+                        TempData[SuccessMessage] = "ویژگی با موفقیت ثبت شد";
+                        return Redirect($"Admin/Product/CreateProductFuture/{futureViewModel.ProductId}");
+                }
+            }
+
+            return View(futureViewModel);
+        }
+
+
+
+
+
     }
 }
