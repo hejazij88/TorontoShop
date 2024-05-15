@@ -250,4 +250,9 @@ public class ProductRepository : IProductRepository
             await _context.SaveChangesAsync();
         }
     }
+
+    public async Task AddProductFuture(ProductFuture productFuture)
+    {
+        await _context.ProductsFutures.AddAsync(productFuture);
+    }
 }

@@ -29,4 +29,6 @@ public interface IProductRepository
     Task<ProductGallery> GetProductGalleriesById(Guid id);
     Task DeleteProductGallery(Guid id);
 
+    Task AddProductFuture(ProductFuture productFuture);
+
 }

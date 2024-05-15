@@ -10,6 +10,7 @@ using TorontoShop.Domain.Model.BaseEntities;
 
 namespace TorontoShop.Domain.Model.ProductEntity
 {
+    [Table("ProductFuture")]
     public class ProductFuture:BaseEntity
     {
         public Guid ProductId { get; set; }

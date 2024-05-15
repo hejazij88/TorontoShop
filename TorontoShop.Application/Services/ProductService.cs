@@ -257,6 +257,8 @@ public class ProductService : IProductService
             Value = createProductFutureViewModel.Value
         };
 
+        await _productRepository.AddProductFuture(future);
+        await _productRepository.SaveChangeAsync();
         return CreateProductFutureResult.Success;
     }
 }
