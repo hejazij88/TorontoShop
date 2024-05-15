@@ -22,5 +22,8 @@ public interface IProductService
     Task<List<ProductGallery>> GetAllProductGalleries(Guid productId);
     Task DeleteImage(Guid galleryId);
 
+    Task<CreateProductFutureResult> CreateProductFuture(CreateProductFutureViewModel createProductFutureViewModel);
+
+
 
 }

@@ -244,4 +244,19 @@ public class ProductService : IProductService
             await _productRepository.DeleteProductGallery(galleryId);
         }
     }
+
+    public async Task<CreateProductFutureResult> CreateProductFuture(CreateProductFutureViewModel createProductFutureViewModel)
+    {
+        var result = await _productRepository.CheckProduct(createProductFutureViewModel.ProductId);
+        if (result == false) return CreateProductFutureResult.Error;
+
+        var future = new ProductFuture
+        {
+            ProductId = createProductFutureViewModel.ProductId,
+            Title = createProductFutureViewModel.Title,
+            Value = createProductFutureViewModel.Value
+        };
+
+        return CreateProductFutureResult.Success;
+    }
 }
