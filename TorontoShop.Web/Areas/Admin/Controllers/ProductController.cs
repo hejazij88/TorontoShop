@@ -236,7 +236,7 @@ namespace TorontoShop.Web.Areas.Admin.Controllers
                         break;
                     case CreateProductFutureResult.Success:
                         TempData[SuccessMessage] = "ویژگی با موفقیت ثبت شد";
-                        return Redirect($"Admin/Product/CreateProductFuture/{futureViewModel.ProductId}");
+                        return Redirect($"CreateProductFuture/{futureViewModel.ProductId}");
                 }
             }
 
