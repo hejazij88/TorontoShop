@@ -255,4 +255,10 @@ public class ProductRepository : IProductRepository
     {
         await _context.ProductsFutures.AddAsync(productFuture);
     }
+
+    public async Task<List<ProductFuture>> GetProductFutures(Guid productId)
+    {
+        return await _context.ProductsFutures.AsQueryable()
+            .Where(future => future.ProductId == productId).ToListAsync();
+    }
 }

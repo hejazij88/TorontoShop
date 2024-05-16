@@ -28,7 +28,8 @@ public interface IProductRepository
     Task<List<ProductGallery>> GetAllProductGalleries(Guid productId);
     Task<ProductGallery> GetProductGalleriesById(Guid id);
     Task DeleteProductGallery(Guid id);
-
     Task AddProductFuture(ProductFuture productFuture);
+
+    Task<List<ProductFuture>> GetProductFutures(Guid productId);
 
 }
