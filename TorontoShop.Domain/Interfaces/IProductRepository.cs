@@ -1,4 +1,5 @@
-﻿using TorontoShop.Domain.Model.ProductEntity;
+﻿using Microsoft.VisualBasic.FileIO;
+using TorontoShop.Domain.Model.ProductEntity;
 using TorontoShop.Domain.ViewModel.Admin.Product;
 
 namespace TorontoShop.Domain.Interfaces;
@@ -29,7 +30,7 @@ public interface IProductRepository
     Task<ProductGallery> GetProductGalleriesById(Guid id);
     Task DeleteProductGallery(Guid id);
     Task AddProductFuture(ProductFuture productFuture);
-
     Task<List<ProductFuture>> GetProductFutures(Guid productId);
+    Task<bool> DeleteProductFuture(Guid productId);
 
 }

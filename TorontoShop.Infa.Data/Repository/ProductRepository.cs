@@ -261,4 +261,20 @@ public class ProductRepository : IProductRepository
         return await _context.ProductsFutures.AsQueryable()
             .Where(future => future.ProductId == productId).ToListAsync();
     }
+
+    public async Task<bool> DeleteProductFuture(Guid productId)
+    {
+        var data = await _context.ProductsFutures.AsQueryable()
+            .FirstOrDefaultAsync(future => future.ProductId == productId);
+
+        if (data != null)
+        {
+            data.IsDeleted=true;
+            _context.ProductsFutures.Update(data);
+           await _context.SaveChangesAsync();
+           return true;
+        }
+
+        return false;
+    }
 }
