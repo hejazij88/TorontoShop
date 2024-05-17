@@ -268,8 +268,8 @@ public class ProductService : IProductService
         
     }
 
-    public async Task<bool> DeleteProductFuture(Guid productId)
+    public async Task<bool> DeleteProductFuture(Guid futureId)
     {
-        return await _productRepository.DeleteProductFuture(productId);
+        return await _productRepository.DeleteProductFuture(futureId);
     }
 }

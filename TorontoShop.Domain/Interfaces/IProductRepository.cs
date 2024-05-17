@@ -31,6 +31,6 @@ public interface IProductRepository
     Task DeleteProductGallery(Guid id);
     Task AddProductFuture(ProductFuture productFuture);
     Task<List<ProductFuture>> GetProductFutures(Guid productId);
-    Task<bool> DeleteProductFuture(Guid productId);
+    Task<bool> DeleteProductFuture(Guid futureId);
 
 }

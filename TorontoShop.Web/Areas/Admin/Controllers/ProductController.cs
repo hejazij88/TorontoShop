@@ -33,10 +33,10 @@ namespace TorontoShop.Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _productService.CreateProductCategory(productCategoryViewModel,image);
+                var result = await _productService.CreateProductCategory(productCategoryViewModel, image);
                 switch (result)
                 {
-                    case  CreateProductCategoryResult.IsExist:
+                    case CreateProductCategoryResult.IsExist:
                         TempData[ErrorMessage] = "url تکراری است";
                         break;
                     case CreateProductCategoryResult.Success:
@@ -53,13 +53,13 @@ namespace TorontoShop.Web.Areas.Admin.Controllers
         {
             var result = await _productService.GetEditProductCategory(productCategoryId);
             if (result == null) NotFound();
-            
-                return View(result);
-            
+
+            return View(result);
+
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditProductCategory(EditProductCategoryViewModel productCategoryViewModel,IFormFile? image)
+        public async Task<IActionResult> EditProductCategory(EditProductCategoryViewModel productCategoryViewModel, IFormFile? image)
         {
             if (ModelState.IsValid)
             {
@@ -116,7 +116,7 @@ namespace TorontoShop.Web.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> EditProduct(Guid productId)
         {
-           var data= await _productService.GetEditProduct(productId);
+            var data = await _productService.GetEditProduct(productId);
             if (data == null)
             {
                 return NotFound();
@@ -125,12 +125,12 @@ namespace TorontoShop.Web.Areas.Admin.Controllers
             return View(data);
         }
 
-        [HttpPost,ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> EditProduct(EditProductViewModel editProductViewModel, IFormFile? image)
         {
             if (ModelState.IsValid)
             {
-                    var result = await _productService.EditProduct(editProductViewModel, image);
+                var result = await _productService.EditProduct(editProductViewModel, image);
                 switch (result)
                 {
                     case EditProductResult.NotFound:
@@ -243,6 +243,28 @@ namespace TorontoShop.Web.Areas.Admin.Controllers
             return View(futureViewModel);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ProductFutures(Guid productId)
+        {
+            return View(await _productService.GetProductFuture(productId));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DeleteProductFuture(Guid futureId)
+        {
+            var result = await _productService.DeleteProductFuture(futureId);
+            if (result == true)
+            {
+                TempData[SuccessMessage] = "حدف ویژگی با موفقیت انجام شد";
+               return Redirect($"ProductFutures/{futureId}");
+            }
+            else
+            {
+                TempData[ErrorMessage] = "مشکلی در حذف کردن رخ داده";
+
+                return RedirectToAction("FilterProduct");
+            }
+        }
 
 
 
