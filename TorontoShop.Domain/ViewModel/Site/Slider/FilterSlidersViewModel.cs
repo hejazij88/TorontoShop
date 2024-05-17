@@ -9,20 +9,20 @@ using TorontoShop.Domain.ViewModel.Paging;
 
 namespace TorontoShop.Domain.ViewModel.Site.Slider
 {
-    public class FilterSliders : BasePaging
+    public class FilterSlidersViewModel : BasePaging
     {
         public string Tiltle { get; set; }
 
         public List<Slide> Slides { get; set; }
 
 
-        public FilterSliders SetSlider(List<Slide> slides)
+        public FilterSlidersViewModel SetSlider(List<Slide> slides)
         {
             Slides = slides;
             return this;
         }
 
-        public FilterSliders SetPaging(BasePaging paging)
+        public FilterSlidersViewModel SetPaging(BasePaging paging)
         {
             PageId = paging.PageId;
             AllEntityCount = paging.AllEntityCount;

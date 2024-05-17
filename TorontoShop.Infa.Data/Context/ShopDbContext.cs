@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TorontoShop.Domain.Model.Accounts;
 using TorontoShop.Domain.Model.ProductEntity;
+using TorontoShop.Domain.Model.Site;
 using TorontoShop.Domain.Model.Wallet;
 
 namespace TorontoShop.Infa.Data.Context
@@ -28,6 +29,8 @@ namespace TorontoShop.Infa.Data.Context
         public DbSet<ProductCategory> ProductCategory { get; set; }
         public DbSet<ProductFuture> ProductsFutures { get; set; }
         public DbSet<ProductGallery> Gallery { get; set; }
+        public DbSet<Slide> Slides { get; set; }
+
 
 
 
