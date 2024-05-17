@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using TorontoShop.Domain.Model.BaseEntities;
 
 namespace TorontoShop.Domain.Model.Site
 {
+    [Table("Slides")]
     public class Slide:BaseEntity
     {
         public string ImageName { get; set; }
