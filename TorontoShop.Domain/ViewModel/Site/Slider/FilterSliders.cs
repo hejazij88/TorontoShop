@@ -7,9 +7,9 @@ using TorontoShop.Domain.Model.Site;
 using TorontoShop.Domain.ViewModel.Admin.Product;
 using TorontoShop.Domain.ViewModel.Paging;
 
-namespace TorontoShop.Domain.ViewModel.Site
+namespace TorontoShop.Domain.ViewModel.Site.Slider
 {
-    public class FilterSliders:BasePaging
+    public class FilterSliders : BasePaging
     {
         public string Tiltle { get; set; }
 
@@ -24,14 +24,14 @@ namespace TorontoShop.Domain.ViewModel.Site
 
         public FilterSliders SetPaging(BasePaging paging)
         {
-            this.PageId = paging.PageId;
-            this.AllEntityCount = paging.AllEntityCount;
-            this.StartPage = paging.StartPage;
-            this.EndPage = paging.EndPage;
-            this.TakeEntity = paging.TakeEntity;
-            this.CountForShowAfterAndBefor = paging.CountForShowAfterAndBefor;
-            this.SkipEntity = paging.SkipEntity;
-            this.PageCount = paging.PageCount;
+            PageId = paging.PageId;
+            AllEntityCount = paging.AllEntityCount;
+            StartPage = paging.StartPage;
+            EndPage = paging.EndPage;
+            TakeEntity = paging.TakeEntity;
+            CountForShowAfterAndBefor = paging.CountForShowAfterAndBefor;
+            SkipEntity = paging.SkipEntity;
+            PageCount = paging.PageCount;
 
             return this;
         }
