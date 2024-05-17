@@ -24,6 +24,8 @@ public interface IProductService
 
     Task<CreateProductFutureResult> CreateProductFuture(CreateProductFutureViewModel createProductFutureViewModel);
 
+    Task<List<ProductFuture>> GetProductFuture(Guid productId);
+
 
 
 }

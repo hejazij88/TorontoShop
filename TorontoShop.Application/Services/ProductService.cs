@@ -261,4 +261,10 @@ public class ProductService : IProductService
         await _productRepository.SaveChangeAsync();
         return CreateProductFutureResult.Success;
     }
+
+    public async Task<List<ProductFuture>> GetProductFuture(Guid productId)
+    {
+        return await _productRepository.GetProductFutures(productId);
+        
+    }
 }
