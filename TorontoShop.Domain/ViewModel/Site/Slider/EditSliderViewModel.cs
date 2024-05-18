@@ -3,7 +3,7 @@
 public class EditSliderViewModel:CreateSliderViewModel
 {
     public Guid Id { get; set; }
-    public string ImageName { get; set; }
+    public string? ImageName { get; set; }
 }
 
 public enum EditSliderResult

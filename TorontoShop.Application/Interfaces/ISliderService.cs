@@ -9,4 +9,5 @@ public interface ISliderService
     Task<EditSliderViewModel> GetSlider(Guid sliderId);
     Task<CreateSliderResult> AddSlider(CreateSliderViewModel createSliderViewModel,IFormFile? image);
     Task<EditSliderResult> EditSlider(EditSliderViewModel editSliderViewModel,IFormFile? image);
+    Task<bool> DeleteSlider(Guid SliderId);
 }

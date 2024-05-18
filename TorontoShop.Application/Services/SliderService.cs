@@ -96,4 +96,9 @@ public class SliderService : ISliderService
 
         return EditSliderResult.Success;
     }
+
+    public async Task<bool> DeleteSlider(Guid SliderId)
+    {
+        return await _sliderRepository.DeleteSlide(SliderId);
+    }
 }

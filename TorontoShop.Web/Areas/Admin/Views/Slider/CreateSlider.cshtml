@@ -1,0 +1,77 @@
+﻿@model TorontoShop.Domain.ViewModel.Site.Slider.CreateSliderViewModel
+@{
+    ViewData["Title"] = "افزودن اسلایدر";
+}
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <p class="card-text">ثبت اطلاعات</p>
+                <form asp-area="Admin" asp-controller="Slider" asp-action="CreateSlider" method="post" enctype="multipart/form-data">
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-lable">
+                                    عنوان
+                                </label>
+                                <input class="form-control" asp-for="Title">
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-lable">
+                                    متن
+                                </label>
+                                <input class="form-control" asp-for="Text">
+                                <span asp-validation-for="Text" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-lable">
+                                    ادرس
+                                </label>
+                                <input class="form-control" asp-for="Href">
+                                <span asp-validation-for="Href" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-lable">
+                                    متن دکمه
+                                </label>
+                                <input class="form-control" asp-for="ButtonText">
+                                <span asp-validation-for="ButtonText" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <div class="form-group">
+                                <label class="form-lable">
+                                    عکس
+                                </label>
+                                <input class="form-control" type="file" name="image">
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="mt-5">
+                        <button type="submit" class="btn btn-success btn-block ">ثبت اطلاعات</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
