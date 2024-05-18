@@ -26,5 +26,11 @@ namespace TorontoShop.Application.Utils
 
         public static string ProductThumb = "/img/Product/thumb/";
         public static string ProductThumbServer = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/Product/thumb/");
+
+        public static string SliderOrigin = "/img/Slider/origin/";
+        public static string SliderOriginServer = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/Slider/origin/");
+
+        public static string SliderThumb = "/img/Slider/thumb/";
+        public static string SliderThumbServer = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/Slider/thumb/");
     }
 }
