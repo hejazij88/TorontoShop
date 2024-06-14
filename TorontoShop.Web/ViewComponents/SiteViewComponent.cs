@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.ComponentModel;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using TorontoShop.Application.Interfaces;
+using TorontoShop.Domain.ViewModel.Site.Slider;
 
 namespace TorontoShop.Web.ViewComponents
 {
@@ -31,6 +33,28 @@ namespace TorontoShop.Web.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync()
         {
             return View("SiteFooter");
+        }
+    }
+    #endregion
+
+
+    #region site Sloder - Home
+    public class SliderHomeViewComponent : ViewComponent
+    {
+        private readonly ISliderService _sliderService;
+        public SliderHomeViewComponent(ISliderService sliderService)
+        {
+            _sliderService = sliderService;
+        }
+        public async Task<IViewComponentResult> InvokeAsync()
+        {
+            var filterSliderVM = new FilterSlidersViewModel()
+            {
+                TakeEntity = 10
+            };
+
+            var data = _sliderService.FilterSliders(filterSliderVM);
+            return View("SliderHome",data);
         }
     }
     #endregion

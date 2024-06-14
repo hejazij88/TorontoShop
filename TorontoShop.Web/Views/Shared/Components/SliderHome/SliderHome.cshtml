@@ -1,0 +1,37 @@
+﻿@using TorontoShop.Application.Utils
+@model TorontoShop.Domain.ViewModel.Site.Slider.FilterSlidersViewModel
+
+@if(Model.Slides !=null && Model.Slides.Any())
+{
+    <div class="intro-slider owl-carousel owl-theme owl-nav-inside owl-light" data-toggle="owl"
+         data-owl-options='{ "dots": true,"nav": false,"rtl": true,"responsive": {"1200": {"nav": true,"dots": false}}}'>
+
+        @foreach (var slider in Model.Slides)
+        {
+            <div class="intro-slide"
+                 style="background-image: url(@(PathExtensions.SliderOrigin +slider.ImageName));">
+                <div class="container intro-content">
+                    <div class="row justify-content-end">
+                        <div class="col-auto col-sm-7 col-md-6 col-lg-5">
+                            <h3 class="intro-subtitle text-third">@slider.Title</h3>
+
+                            <div class="intro-price" dir="rtl">
+                                <span class="text-third">
+                                    @slider.Text
+                                </span>
+                            </div>
+
+                            <a href="@slider.Href" class="btn btn-primary btn-round" target="_blank">
+                                <span>@slider.ButtonText</span>
+                                <i class="icon-long-arrow-left"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+}
+
+<span class="slider-loader"></span>
