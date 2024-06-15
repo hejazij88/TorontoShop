@@ -91,10 +91,7 @@ namespace TorontoShop.Web.ViewComponents
         }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var filterCategoryVM = new ProductCategoryFilterViewModel()
-            {
-                TakeEntity = 6
-            };
+            var filterCategoryVM = new ProductCategoryFilterViewModel();
 
             var data = await _productService.ProductCategoryFilter(filterCategoryVM);
             return View("SideBarCategory", data);
