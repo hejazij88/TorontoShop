@@ -53,7 +53,7 @@ namespace TorontoShop.Web.ViewComponents
                 TakeEntity = 10
             };
 
-            var data = _sliderService.FilterSliders(filterSliderVM);
+            var data =await _sliderService.FilterSliders(filterSliderVM);
             return View("SliderHome",data);
         }
     }
