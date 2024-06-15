@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using TorontoShop.Application.Interfaces;
+using TorontoShop.Domain.ViewModel.Admin.Product;
 using TorontoShop.Domain.ViewModel.Site.Slider;
 
 namespace TorontoShop.Web.ViewComponents
@@ -38,7 +39,7 @@ namespace TorontoShop.Web.ViewComponents
     #endregion
 
 
-    #region site Sloder - Home
+    #region site Slider - Home
     public class SliderHomeViewComponent : ViewComponent
     {
         private readonly ISliderService _sliderService;
@@ -55,6 +56,48 @@ namespace TorontoShop.Web.ViewComponents
 
             var data =await _sliderService.FilterSliders(filterSliderVM);
             return View("SliderHome",data);
+        }
+    }
+    #endregion
+
+
+    #region PopularCategory
+    public class PopularCategoryViewComponent : ViewComponent
+    {
+        private readonly IProductService _productService;
+        public PopularCategoryViewComponent(IProductService productService)
+        {
+            _productService=productService ;
+        }
+        public async Task<IViewComponentResult> InvokeAsync()
+        {
+            var filterCategoryVM = new ProductCategoryFilterViewModel()
+            {
+                TakeEntity = 6
+            };
+
+            var data = await _productService.ProductCategoryFilter(filterCategoryVM);
+            return View("PopularCategory", data);
+        }
+    }
+    #endregion
+    #region SideBarCategory
+    public class SideBarCategoryViewComponent : ViewComponent
+    {
+        private readonly IProductService _productService;
+        public SideBarCategoryViewComponent(IProductService productService)
+        {
+            _productService = productService;
+        }
+        public async Task<IViewComponentResult> InvokeAsync()
+        {
+            var filterCategoryVM = new ProductCategoryFilterViewModel()
+            {
+                TakeEntity = 6
+            };
+
+            var data = await _productService.ProductCategoryFilter(filterCategoryVM);
+            return View("SideBarCategory", data);
         }
     }
     #endregion
