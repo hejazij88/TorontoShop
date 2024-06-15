@@ -4,6 +4,7 @@ using TorontoShop.Domain.Interfaces;
 using TorontoShop.Domain.Model.ProductEntity;
 using TorontoShop.Domain.ViewModel.Admin.Product;
 using TorontoShop.Domain.ViewModel.Paging;
+using TorontoShop.Domain.ViewModel.Site.Products;
 using TorontoShop.Infa.Data.Context;
 
 namespace TorontoShop.Infa.Data.Repository;
@@ -276,5 +277,20 @@ public class ProductRepository : IProductRepository
         }
 
         return false;
+    }
+
+    public async Task<List<ProductItemViewModel>> ShowAllProductInSlider()
+    {
+        var allProduct = await _context.Product.Include(c => c.ProductSelectedCategory).ThenInclude(c => c.ProductCategory).AsQueryable()
+            .Select(c => new ProductItemViewModel
+            {
+                ProductCategory = c.ProductSelectedCategory.Select(c => c.ProductCategory).First(),
+                Price = c.Price,
+                ProductId = c.Id,
+                ProductImageName = c.ImageName,
+                ProductName = c.Name
+            }).ToListAsync();
+
+        return allProduct;
     }
 }

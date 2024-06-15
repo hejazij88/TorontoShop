@@ -5,6 +5,7 @@ using TorontoShop.Application.Utils;
 using TorontoShop.Domain.Interfaces;
 using TorontoShop.Domain.Model.ProductEntity;
 using TorontoShop.Domain.ViewModel.Admin.Product;
+using TorontoShop.Domain.ViewModel.Site.Products;
 
 namespace TorontoShop.Application.Services;
 
@@ -271,5 +272,10 @@ public class ProductService : IProductService
     public async Task<bool> DeleteProductFuture(Guid futureId)
     {
         return await _productRepository.DeleteProductFuture(futureId);
+    }
+
+    public async Task<List<ProductItemViewModel>> ShowAllProductInSlider()
+    {
+        return await _productRepository.ShowAllProductInSlider();
     }
 }

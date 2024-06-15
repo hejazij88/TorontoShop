@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using TorontoShop.Domain.Model.ProductEntity;
 using TorontoShop.Domain.ViewModel.Admin.Product;
+using TorontoShop.Domain.ViewModel.Site.Products;
 
 namespace TorontoShop.Application.Interfaces;
 
@@ -27,7 +28,7 @@ public interface IProductService
     Task<List<ProductFuture>> GetProductFuture(Guid productId);
     Task<bool> DeleteProductFuture(Guid futureId);
 
-
+    Task<List<ProductItemViewModel>> ShowAllProductInSlider();
 
 
 }

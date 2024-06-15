@@ -98,4 +98,25 @@ namespace TorontoShop.Web.ViewComponents
         }
     }
     #endregion
+
+    #region All-productInSlider - home
+    public class AllProductInSliderViewComponent : ViewComponent
+    {
+        #region constractor
+        private readonly IProductService _productService;
+        public AllProductInSliderViewComponent(IProductService productService)
+        {
+            _productService = productService;
+        }
+        #endregion
+
+        public async Task<IViewComponentResult> InvokeAsync()
+        {
+
+            var data = await _productService.ShowAllProductInSlider();
+
+            return View("AllProductInSlider", data);
+        }
+    }
+    #endregion
 }
