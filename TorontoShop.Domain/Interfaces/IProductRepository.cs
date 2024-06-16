@@ -35,6 +35,8 @@ public interface IProductRepository
     Task<bool> DeleteProductFuture(Guid futureId);
     Task<List<ProductItemViewModel>> ShowAllProductInSlider();
     Task<List<ProductItemViewModel>> ShowAllProductInCategory(string hrefName);
+    Task<List<ProductItemViewModel>> LastProduct();
+
 
 
 }

@@ -283,4 +283,9 @@ public class ProductService : IProductService
     {
         return await _productRepository.ShowAllProductInCategory(hrefName);
     }
+
+    public async Task<List<ProductItemViewModel>> LastProducts()
+    {
+        return await _productRepository.LastProduct();
+    }
 }

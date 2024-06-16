@@ -31,6 +31,9 @@ public interface IProductService
     Task<List<ProductItemViewModel>> ShowAllProductInSlider();
     Task<List<ProductItemViewModel>> ShowAllProductInCategory(string hrefName);
 
+    Task<List<ProductItemViewModel>> LastProducts();
+
+
 
 
 }

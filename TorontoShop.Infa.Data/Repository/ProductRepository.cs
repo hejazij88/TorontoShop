@@ -314,4 +314,20 @@ public class ProductRepository : IProductRepository
 
         return data;
     }
+
+    public async Task<List<ProductItemViewModel>> LastProduct()
+    {
+        var allProduct = await _context.Product.Include(c => c.ProductSelectedCategory).ThenInclude(c => c.ProductCategory).AsQueryable()
+            .OrderByDescending(product =>product.CreatedDate)
+            .Select(c => new ProductItemViewModel
+            {
+                ProductCategory = c.ProductSelectedCategory.Select(c => c.ProductCategory).First(),
+                Price = c.Price,
+                ProductId = c.Id,
+                ProductImageName = c.ImageName,
+                ProductName = c.Name
+            }).Take(8).ToListAsync();
+
+        return allProduct;
+    }
 }
