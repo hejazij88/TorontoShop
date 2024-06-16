@@ -114,6 +114,24 @@ public class ProductRepository : IProductRepository
                 break;
         }
 
+        switch (filterProductViewModel.ProductBox)
+        {
+            case ProductBox.Default:
+                break;
+            case ProductBox.ItemBoxInSite:
+
+                var pagerBox = Pager.Build(filterProductViewModel.PageId, await query.CountAsync(), filterProductViewModel.TakeEntity, filterProductViewModel.CountForShowAfterAndBefor);
+                var allDataBox = await query.Paging(pagerBox).Select(c => new ProductItemViewModel
+                {
+                    ProductCategory = c.ProductSelectedCategory.Select(c => c.ProductCategory).First(),
+                    //CommentCount = 0,
+                    Price = c.Price,
+                    ProductId = c.Id,
+                    ProductImageName = c.ImageName,
+                    ProductName = c.Name
+                }).ToListAsync();
+                return filterProductViewModel.SetPaging(pagerBox).SetProductItem(allDataBox);
+        }
         #endregion
 
         var pager = Pager.Build(filterProductViewModel.PageId, await query.CountAsync(), filterProductViewModel.TakeEntity, filterProductViewModel.CountForShowAfterAndBefor);

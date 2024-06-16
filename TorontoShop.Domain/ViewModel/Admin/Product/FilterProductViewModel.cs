@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using TorontoShop.Domain.ViewModel.Paging;
+using TorontoShop.Domain.ViewModel.Site.Products;
 
 namespace TorontoShop.Domain.ViewModel.Admin.Product
 {
@@ -8,13 +9,23 @@ namespace TorontoShop.Domain.ViewModel.Admin.Product
         public string ProductName { get; set; }
         public string ProductCategoryName { get; set; }
         public List<Model.ProductEntity.Product> Products { get; set; }
+        public List<ProductItemViewModel> ProductItem { get; set; }
+
         public ProductState State { get; set; }
         public ProductOrder ProductOrder { get; set; }
+        public ProductBox ProductBox { get; set; }
+
 
 
         public FilterProductViewModel SetProduct(List<Model.ProductEntity.Product> products)
         {
             this.Products = products;
+            return this;
+        }
+
+        public FilterProductViewModel SetProductItem(List<ProductItemViewModel> itemViewModels)
+        {
+            ProductItem=itemViewModels;
             return this;
         }
 
@@ -55,5 +66,13 @@ namespace TorontoShop.Domain.ViewModel.Admin.Product
         Expensive,
         [Display(Name = "ارزان ترین")]
         Chip,
+    }
+
+    public enum ProductBox
+    {
+        Default,
+        ItemBoxInSite,
+
+
     }
 }
