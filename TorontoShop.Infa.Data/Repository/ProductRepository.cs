@@ -293,4 +293,25 @@ public class ProductRepository : IProductRepository
 
         return allProduct;
     }
+
+    public async Task<List<ProductItemViewModel>> ShowAllProductInCategory(string hrefName)
+    {
+        //var allProduct = await _context.ProductCategory.Include(category => category.ProductSelectedCategories)
+        //    .ThenInclude(category => category.Product)
+        //    .Where(category => category.UrlName == hrefName)
+        //    .Select(category => category.ProductSelectedCategories.Select(selectedCategory => selectedCategory.Product))
+        //    .ToListAsync();
+        var product = await _context.Product.Include(c => c.ProductSelectedCategory).ThenInclude(c => c.ProductCategory).Where(c => c.ProductSelectedCategory.Any(c => c.ProductCategory.UrlName == hrefName)).ToListAsync();
+
+        var data = product.Select(c => new ProductItemViewModel
+        {
+            ProductCategory = c.ProductSelectedCategory.Select(c => c.ProductCategory).First(),
+            Price = c.Price,
+            ProductId = c.Id,
+            ProductImageName = c.ImageName,
+            ProductName = c.Name
+        }).ToList();
+
+        return data;
+    }
 }
